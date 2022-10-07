@@ -308,7 +308,7 @@ if ($status -eq "Succeeded")
 # Scheduled Task
 $Trigger= New-ScheduledTaskTrigger -AtLogOn
 $User= "$($env:ComputerName)\demouser"
-$Action= New-ScheduledTaskAction -Execute "C:\Windows\System32\WindowsPowerShell\v1.0\Powershell.exe" -Argument "-executionPolicy Unrestricted -File C:\LabFiles\logon.ps1"
+$Action= New-ScheduledTaskAction -Execute "C:\Windows\System32\WindowsPowerShell\v1.0\Powershell.exe" -Argument "-executionPolicy Unrestricted -File C:\LabFiles\docker.ps1"
 Register-ScheduledTask -TaskName "Setup1" -Trigger $Trigger -User $User -Action $Action -RunLevel Highest -Force
 Set-ExecutionPolicy -ExecutionPolicy bypass -Force
  
