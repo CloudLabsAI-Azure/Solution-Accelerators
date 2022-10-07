@@ -66,18 +66,19 @@ These are the key pre-requisites to deploy this solution:
 
 ### STEP 1 - Authorize Event Grid API Connection
 
+**Note: Please consider the 6 digit unique number you entered whereever you see <$uniqueNumber>**
 
 1. Wait for the step in the script that states **STEP 12 - Create API Connection and Deploy Logic app**.
 
 
 ![Step 12 API Yellow](../media/Intelligent-Document-Processing/Step12.jpg)
 
-2. We need to authorize the API connection in two minutes. Once you see the message **Authorize idp<inject key="DeploymentID" enableCopy="false" />aegpi API Connection** in yellow, go to **Intelligent** resource group. 
+2. We need to authorize the API connection in two minutes. Once you see the message **Authorize idp<$uniqueNumber>aegpi API Connection** in yellow, go to **Intelligent** resource group. 
 
 
 ![Authorize aegapi Yellow](../media/Intelligent-Document-Processing/aegapi-authorize-yellow.jpg)
 
-3. Search for the **idp<inject key="DeploymentID" enableCopy="false" />aegapi** resource in the search tab and click on it. This will now take you to a API connection page. 
+3. Search for the **idp<$uniqueNumber>aegapi** resource in the search tab and click on it. This will now take you to a API connection page. 
 
 
 ![select aegapi in RG](../media/Intelligent-Document-Processing/search-select-aegapi.jpg)
@@ -117,12 +118,12 @@ These are the key pre-requisites to deploy this solution:
 
 ### STEP 2 - Authorize Office 365 API Connection
 
-1. We need follow the same procedure to authorize the Office 365 API as we did for the Event Grid API. We have to authorize the API connection in two minutes. Once you see the message **Authorize idp<inject key="DeploymentID" enableCopy="false" />o365api API Connection** in yellow, go to **Intelligent** resource group. 
+1. We need follow the same procedure to authorize the Office 365 API as we did for the Event Grid API. We have to authorize the API connection in two minutes. Once you see the message **Authorize idp<$uniqueNumber>o365api API Connection** in yellow, go to **Intelligent** resource group. 
 
 
 ![Authorize office365 api Yellow](../media/Intelligent-Document-Processing/authorize-officeapi-yellow.jpg)
 
-2. Search for the **idp<inject key="DeploymentID" enableCopy="false" />o365api** resource in the resources search tab and click on it. This will now take you to a API connection page. 
+2. Search for the **idp<$uniqueNumber>o365api** resource in the resources search tab and click on it. This will now take you to a API connection page. 
 
 
 ![select office365 api in RG](../media/Intelligent-Document-Processing/Search-select-OfficeAPI.jpg)
@@ -164,7 +165,7 @@ We have now authorized both the API connections. Go back to the PowerShell windo
 
 ## Acessing the Search UI
 
-1. Go back to the **Intelligent** resource group. Then, search and select **idp<inject key="DeploymentID" enableCopy="false" />webapp**. 
+1. Go back to the **Intelligent** resource group. Then, search and select **idp<$uniqueNumber>webapp**. 
 
 
 ![Select cognitive search RG](../media/Intelligent-Document-Processing/SearchSelect-Webapp-RG.jpg)
@@ -213,7 +214,7 @@ We have now completed exploring the Cognitive Search UI.
 
 ### STEP 1 - Creating Knowledge Store
 
-1. In the **Intelligent** resource group, search and select **idp<inject key="DeploymentID" enableCopy="false" />azs** cognitive search service reosurce.
+1. In the **Intelligent** resource group, search and select **idp<$uniqueNumber>azs** cognitive search service reosurce.
 
 
 ![Select Cognitive search service](../media/Intelligent-Document-Processing/Search-select-rg.jpg)
@@ -233,13 +234,13 @@ We have now completed exploring the Cognitive Search UI.
 
 ![Select Drop Down](../media/Intelligent-Document-Processing/drop-down.jpg)
 
-5. Select the **idp<inject key="DeploymentID" enableCopy="false" />cs** ***(1)*** search service and click on the **Add enrichments** ***(2)*** drop down. 
+5. Select the **idp<$uniqueNumber>cs** ***(1)*** search service and click on the **Add enrichments** ***(2)*** drop down. 
 
 
 ![Attach Cognitive search](../media/Intelligent-Document-Processing/select-attach-cognitiveservice.jpg)
 
 6. Make sure to fill the below details as per the image below
-   * Skillset name: **forms<inject key="DeploymentID" enableCopy="false" />-skillset** ***(1)***
+   * Skillset name: **forms<$uniqueNumber>-skillset** ***(1)***
    * Enable OCR and merge all text into **merged_content** field: **Check the box** ***(2)***
    * Source data field: **merged_content** ***(3)***
    * Enrichment granularity: **Pages (5000 characters chunks)** ***(4)***
@@ -267,7 +268,7 @@ We have now completed exploring the Cognitive Search UI.
 
 ![Storage Account Connection String](../media/Intelligent-Document-Processing/choose-connectionString.jpg)
 
-10. Choose the **idp<inject key="DeploymentID" enableCopy="false" />sa** storage account.
+10. Choose the **idp<$uniqueNumber>sa** storage account.
 
 
 ![Select storage account](../media/Intelligent-Document-Processing/select-storageAcc.jpg)
@@ -282,13 +283,13 @@ We have now completed exploring the Cognitive Search UI.
 
 ![Copy the Power BI parameters](../media/Intelligent-Document-Processing/next-targetIndex.jpg)
 
-13. In this tab, enter the **Index name** as **forms<inject key="DeploymentID" enableCopy="false" />-index** ***(1)*** and select **Next: Create an indexer** ***(2)***. 
+13. In this tab, enter the **Index name** as **forms<$uniqueNumber>-index** ***(1)*** and select **Next: Create an indexer** ***(2)***. 
 
 
 ![Index details](../media/Intelligent-Document-Processing/customize-index2.jpg)
 
 14. Provide the following details for the indexer, 
-    * Name: **forms<inject key="DeploymentID" enableCopy="false" />-indexer** ***(1)***
+    * Name: **forms<$uniqueNumber>-indexer** ***(1)***
     * Schedule: **Custom** ***(2)***
     * Interval (minutes): **5** ***(3)***
     * Select **Submit** ***(4)*** to complete the process of creating **Knowledge Store** 
@@ -365,7 +366,7 @@ We have now configured the Cognitive Search Knowledge Store.
 
 ![Provide Parameters](../media/Intelligent-Document-Processing/enter-param.jpg)
 
-8. To get the **StorageAccountSasUri**, please revert back to **Intelligent** resource group in Azure. Then search and select **idp<inject key="DeploymentID" enableCopy="false" />sa** storage account. 
+8. To get the **StorageAccountSasUri**, please revert back to **Intelligent** resource group in Azure. Then search and select **idp<$uniqueNumber>sa** storage account. 
 
 
 ![Search and select storage account](../media/Intelligent-Document-Processing/search-select-storage-InRG.jpg)
