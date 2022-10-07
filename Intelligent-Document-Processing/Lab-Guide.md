@@ -66,7 +66,7 @@ These are the key pre-requisites to deploy this solution:
 
 ### STEP 1 - Authorize Event Grid API Connection
 
-**Note: Please consider the 6 digit unique number you entered whereever you see <$uniqueNumber>**
+**Note: Consider the 6 digit unique number you entered whereever you see <$uniqueNumber>**
 
 1. Wait for the step in the script that states **STEP 12 - Create API Connection and Deploy Logic app**.
 
