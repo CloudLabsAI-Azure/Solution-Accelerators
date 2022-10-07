@@ -27,7 +27,6 @@ Many organizations process different format of forms in various format. These fo
 
 ## Deployment
 
-Note: Most of the resources of this solution would have been already deployed.
 
 ### STEP 0 - Before you start (Pre-requisites)
 
