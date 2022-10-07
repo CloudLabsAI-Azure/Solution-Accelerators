@@ -33,6 +33,18 @@ The directions provided for this repository assume fundemental working knowledge
 
 2. In order to complete the solution accelerator perform the below steps:
 
+## Deploy the resources
+
+1. Copy and paste the below **Link** in the new tab of your browser and launch the template deployment.  Log in to the Azure portal using your credentials if you are prompted to do so.
+
+    ```
+    https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FCloudLabsAI-Azure%2FSolution-Accelerators%2Fmain%2FPatient-Risk-Analyzer%2Fdeploy.json
+    ```
+
+2. Select the  Resource group **rg-contoso-prod-eastus (1)** from drop-downlist and click on **Review + create (2)**.
+
+      ![template deployment](https://github.com/CloudLabsAI-Azure/AIW-Azure-Network-Solutions/blob/main/media/r+d.png?raw=true)
+
 ## Deploy and configure the Provider Portal App
 
 1. Go to https://make.preview.powerapps.com/
