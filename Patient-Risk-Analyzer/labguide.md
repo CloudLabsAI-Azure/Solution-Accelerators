@@ -33,6 +33,27 @@ The directions provided for this repository assume fundemental working knowledge
 
 2. In order to complete the solution accelerator perform the below steps:
 
+## Create resource group and service principal
+
+1. From Azure Portal home page, search for **Azure Active Directory** ***(1)*** in the search bar and select **Azure Active Directory** ***(2)*** from the suggestions.
+
+   ![](images/L05/diad5l1.png)
+   
+1. Select **App registrations** ***(1)*** from the side blade and click on **+ New registration** ***(2)***. This application registration will be used for the connector to access the protected API.
+
+   ![](images/L05/diad5l2.png)
+
+1. Please provide the following details and click on **Register** ***(3)***.
+   
+   - Name: **SolutionAccelerator***
+   - Supported account types: **Accounts in this organizational directory only (OTU WA AIW [SUFFIX] only - Single tenant)** ***(2)***
+
+   ![](images/L05/diad5l3.png).
+   
+1. Copy the **Application (client) ID**, **Directory(Tenant) ID**, and save it in a notepad as you need it for later use.
+     
+   ![](images/L05/diad5l4.png)
+
 ## Deploy the resources
 
 1. Copy and paste the below **Link** in the new tab of your browser and launch the template deployment.  Log in to the Azure portal using your credentials if you are prompted to do so.
@@ -41,7 +62,12 @@ The directions provided for this repository assume fundemental working knowledge
     https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FCloudLabsAI-Azure%2FSolution-Accelerators%2Fmain%2FPatient-Risk-Analyzer%2Fdeploy.json
     ```
 
-2. Select the  Resource group **rg-contoso-prod-eastus (1)** from drop-downlist and click on **Review + create (2)**.
+2. Select the Resource group **solutionaccelarator** from drop-downlist and enter the below details.
+
+    **Azure User Name**: Enter your azure user name
+    **Azure Password**: Enter your azure password
+    **Deployment ID**: Enter unique number ( ex: 789654)
+    **Azuserobjectid**: Enter your azure object id
 
       ![template deployment](https://github.com/CloudLabsAI-Azure/AIW-Azure-Network-Solutions/blob/main/media/r+d.png?raw=true)
 
