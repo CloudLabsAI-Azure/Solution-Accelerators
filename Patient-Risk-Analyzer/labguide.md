@@ -44,7 +44,7 @@ The directions provided for this repository assume fundemental working knowledge
 
 2. Select the Resource group **solutionaccelarator** from drop-downlist and enter the below details.
 
-    -  **Resource group**: click on create new and enter soultion-accelerator, then click on **ok**
+    -  **Resource group**: click on create new and enter **solution-accelerator**, then click on **ok**
     -  **Azure User Name**: Enter your azure user name
     -  **Azure Password**: Enter your azure password
     -  **Deployment ID**: Enter unique number ( ex: 789654)
