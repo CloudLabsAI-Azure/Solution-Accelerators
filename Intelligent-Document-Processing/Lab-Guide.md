@@ -34,14 +34,18 @@ These are the key pre-requisites to deploy this solution:
 
 1. Download the PowerBI application and have it installed on your PC.
 
-2. Download the **setup-script.ps1** file from the repo's **Intelligent-Document-Processing** folder.
+2. Copy the entire **setup-script.ps1** script from the repo's **Intelligent-Document-Processing** folder.
 
 
-![Download Setup script](../media/Intelligent-Document-Processing/Download-setup-script.jpg)
+![Setup script pointing in repo](../media/Intelligent-Document-Processing/Download-setup-script.jpg)
 
-3. Open the **setup-script.ps1** script in **Powershell ISE** as an **Administrator**.
 
-4. In the **setup-script.ps1** file, add the values for **$subscriptionId** ***(1)*** and **$uniqueNumber** ***(2)*** within the double quotes. Also, update the region name in **$location** ***(3)*** if required. 
+
+![copy setup script](../media/Intelligent-Document-Processing/copy-setup-script.jpg)
+
+3. Open **Powershell ISE** as an **Administrator** and paste the entire **setup-script.ps1** script.
+
+4. In the script, add the values for **$subscriptionId** ***(1)*** and **$uniqueNumber** ***(2)*** within the double quotes. Also, update the region name in **$location** ***(3)*** if required. 
 
 
 ![Add values in setup script](../media/Intelligent-Document-Processing/Add-values.jpg)
