@@ -1,12 +1,12 @@
 #Setup Script
 
-#Enter Subscription ID
+#1 Enter Subscription ID
 $subscriptionId= "<EnterSubscriptionIDValue>"
 
-#Enter any 6 digit number
+#2 Enter any 6 digit number
 $uniqueNumber= "<Enter-any-6-Digits>"
 
-#Update the region here if required: East US, South Central US, West US
+#3 Update the region here if required: East US, South Central US, West US
 $location= "East US"
 
 New-Item -ItemType directory -Path D:\LabFiles -force
@@ -24,6 +24,7 @@ New-Item D:\LabFiles\LabValues.txt
 $subscriptionIdInFile= "subscriptionId = "+$subscriptionId
 $uniqueNumberInFile= "uniqueNumber = "+$uniqueNumber
 $locationInFile= "location = "+$location
+
 
 Add-Content -Path D:\LabFiles\LabValues.txt -Value $subscriptionIdInFile -Force
 Add-Content -Path D:\LabFiles\LabValues.txt -Value $uniqueNumberInFile -Force
