@@ -41,7 +41,7 @@ These are the key pre-requisites to deploy this solution:
 
 3. Open the **setup-script.ps1** script in **Powershell ISE** as an **Administrator**.
 
-4. In the **setup-script.ps1** file, add the values for **$subscriptionId** ***(1)*** and **$uniqueNumber** ***(2)*** within the double quotes. Also, update the region name in **$location** ***(3)*** if required and save the file. 
+4. In the **setup-script.ps1** file, add the values for **$subscriptionId** ***(1)*** and **$uniqueNumber** ***(2)*** within the double quotes. Also, update the region name in **$location** ***(3)*** if required. 
 
 
 ![Add values in setup script](../media/Intelligent-Document-Processing/Add-values.jpg)
