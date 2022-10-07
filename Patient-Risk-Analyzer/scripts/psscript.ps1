@@ -14,9 +14,6 @@ Param (
 
     [string]
     $DeploymentID,
-
-    [string]
-    $azuserobjectid,
     
     [string]
     $vmAdminUsername,
