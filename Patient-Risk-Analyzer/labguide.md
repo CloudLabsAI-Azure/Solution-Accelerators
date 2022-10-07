@@ -1,5 +1,5 @@
 
-![](Resource_Deployment/img/banner.png)
+![](https://github.com/CloudLabsAI-Azure/Machine-Learning-Patient-Risk-Analyzer-SA/raw/main/Resource_Deployment/img/banner.png)
 
 # About this repository 
 Machine Learning Patient Risk Analyzer Solution Accelerator is an end-to-end (E2E) healthcare app that leverages ML prediction models (e.g., Diabetes Mellitus (DM) patient 30-day re-admission, breast cancer risk, etc.) to demonstrate how these models can provide key insights for both physicians and patients.  Patients can easily access their appointment and care history with infused cognitive services through a conversational interface.  
