@@ -31,34 +31,37 @@ Many organizations process different format of forms in various format. These fo
 ### STEP 0 - Before you start (Pre-requisites)
 
 These are the key pre-requisites to deploy this solution:
-1. Download the **setup-script.ps1** file.
+
+1. Download the PowerBI application and have it installed on your PC.
+
+2. Download the **setup-script.ps1** file from the repo's **Intelligent-Document-Processing** folder.
 
 
 ![Download Setup script](../media/Intelligent-Document-Processing/Download-setup-script.jpg)
 
-2. Open the **setup-script.ps1** script in **Powershell ISE** as an **Administrator**.
+3. Open the **setup-script.ps1** script in **Powershell ISE** as an **Administrator**.
 
-3. In the **setup-script.ps1** file, add the values for **subscriptionId** ***(1)*** and **uniqueNumber** ***(2)***. Also, update the region name in **location** ***(3)*** if required and save the file. 
+4. In the **setup-script.ps1** file, add the values for **$subscriptionId** ***(1)*** and **$uniqueNumber** ***(2)*** within the double quotes. Also, update the region name in **$location** ***(3)*** if required and save the file. 
 
 
 ![Add values in setup script](../media/Intelligent-Document-Processing/Add-values.jpg)
 
 
-4. Execute the **setup-script.ps1** script. This will download all the pre-requisites in the **D:\LabFiles** directory and will start deploying the resources.
+5. Execute the **setup-script.ps1** script. This will download all the pre-requisites in the **D:\LabFiles** directory and will start deploying the resources.
 
 
-5. When you receive an Azure login popup, provide your Azure credentials to login. If you had previously logged in through PowerShell, then you will be prompted to select your account. Please select your account in this case.
+6. When you receive an Azure login popup, provide your Azure credentials to login. If you had previously logged in through PowerShell, then you will be prompted to select your account. Please select your account in this case.
 
  
 ![Azure Login popup](../media/Intelligent-Document-Processing/Azure-login-prompt.jpg)
 
-6. Wait for 5 minutes, then got to **portal.azure.com** and open the **Intelligent** resource group that we will use for the rest of this demo.
+7. Wait for 5 minutes, then got to **portal.azure.com** and open the **Intelligent** resource group that we will use for the rest of this demo.
 
 
 ![Select Intelligent RG](../media/Intelligent-Document-Processing/select-RG.jpg)
 
 
-7. Go back to the PowerShell window and wait for a few minutes as we manually need to authorize two API connections.
+8. Go back to the PowerShell window and wait for a few minutes as we manually need to authorize two API connections.
 
 
 ### STEP 1 - Authorize Event Grid API Connection
@@ -318,10 +321,10 @@ We have now configured the Cognitive Search Knowledge Store.
 
 ### STEP 2 - Power BI Content Analytics
 
-1. Open the Power BI report on the desktop with name **cognitive-search-content-analytics-template**.
+1. Open the Power BI report in the **D:\LabFiles** directory with name **cognitive-search-content-analytics-template.pbit**.
 
 
-![Power BI template desktop](../media/Intelligent-Document-Processing/report-desktop.jpg)
+![Power BI template desktop](../media/Intelligent-Document-Processing/pbi-report.jpg)
 
 2. If you get a popup window stating **Couldn't load the schema for the database model** and you are unable to close it like the below image. 
 
