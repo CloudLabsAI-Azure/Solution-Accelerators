@@ -23,10 +23,12 @@
       "type": "string"
     },
     "vmAdminUsername": {
-      "type": "string"
+      "type": "string",
+      "defaultValue": "demouser"
     },
     "vmAdminPassword": {
-      "type": "SecureString"
+      "type": "SecureString",
+      "defaultValue": "Password.1!!",
     },
 
     "azuserobjectid": {
@@ -37,6 +39,7 @@
     "AzureSubscriptionID": "[subscription().subscriptionId]",
     "AzureTenantID": "[subscription().tenantId]",
     "location": "[resourceGroup().location]",
+    
     "subnetPrefix": "10.0.0.0/24",
     "addressPrefix": "10.0.0.0/16",
     "jumphost": "[concat('labvm-',parameters('DeploymentID'))]",
