@@ -36,7 +36,7 @@ These are the key pre-requisites to deploy this solution:
 
 ![Download Setup script](../media/Intelligent-Document-Processing/Download-setup-script.jpg)
 
-2. Open the **setup-script.ps1** script in Powershell as an **Administrator**.
+2. Open the **setup-script.ps1** script in **Powershell ISE** as an **Administrator**.
 
 3. In the **setup-script.ps1** file, add the values for **subscriptionId** ***(1)*** and **uniqueNumber** ***(2)***. Also, update the region name in **location** ***(3)*** if required and save the file. 
 
