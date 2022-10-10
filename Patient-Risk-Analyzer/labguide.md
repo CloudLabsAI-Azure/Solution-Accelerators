@@ -42,7 +42,6 @@ The directions provided for this repository assume fundemental working knowledge
     https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FCloudLabsAI-Azure%2FSolution-Accelerators%2Fmain%2FPatient-Risk-Analyzer%2Fdeploy.json
     ```
 
-
 2. Select the Resource group **solutionaccelarator** from drop-downlist and enter the below details.
 
     -  **Resource group**: click on create new and enter **solution-accelerator**, then click on **ok**
