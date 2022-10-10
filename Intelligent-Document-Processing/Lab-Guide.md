@@ -34,7 +34,44 @@ These are the key pre-requisites to deploy this solution:
 
 1. Download the PowerBI application and have it installed on your PC.
 
-2. Copy the entire **setup-script.ps1** script from the repo's **Intelligent-Document-Processing** folder.
+2. Go to **https://portal.azure.com/**, search and select **Cognitive services multi-service account**.
+
+
+![Setup script pointing in repo](../media/Intelligent-Document-Processing/cognitive-multi-search-select.jpg) 
+
+
+3. In the **Cognitive Services | Cognitive services multi-service account** page, click on **+ Create**
+
+
+![cognitive multi account create](../media/Intelligent-Document-Processing/cognitive-multi-create.jpg)
+
+
+4. In the **Create Cognitive Services** page, provide the detais for creating the cognitive services account.
+
+i) Subscription: Select the subscription you would like to use. ***(1)***
+
+ii) Resource group: Create or Select the resource group with name **Intelligent**. ***(2)***
+
+iii) Region: Select the region **East US** or **South Central US**. ***(3)***
+
+iv) Name: Provide the name to the cognitive services account with the naming convention "**idp<** **Enter-any-6-digits >cs**". ***(4)***
+
+v) Pricing tier: Select the available pricing tier **Standard S0**. ***(5)***
+
+vi) Agree to the **Responsible AI Notice** terms by checking the box. ***(6)***
+
+Once the details are provided, click on **Review + Create**. ***(7)***
+
+![cognitive multi account details](../media/Intelligent-Document-Processing/cognitive-multi-create-details-v3.jpg)
+
+
+5. Wait for the validation to complete. Then, click on **Create**.
+
+
+![cognitive multi account confirm create](../media/Intelligent-Document-Processing/cognitive-multi-confirm-create-v2.jpg)
+
+
+6. From the GitHub repo **https://github.com/CloudLabsAI-Azure/Solution-Accelerators/tree/main/Intelligent-Document-Processing**, copy the entire **setup-script.ps1** script from the **CloudLabsAI-Azure/Solution-Accelerators** repo's **Intelligent-Document-Processing** folder.
 
 
 ![Setup script pointing in repo](../media/Intelligent-Document-Processing/Download-setup-script.jpg)
@@ -43,29 +80,29 @@ These are the key pre-requisites to deploy this solution:
 
 ![copy setup script](../media/Intelligent-Document-Processing/copy-setup-script.jpg)
 
-3. Open **Powershell ISE** as an **Administrator** and paste the entire **setup-script.ps1** script.
+7. Open **Powershell ISE** as an **Administrator** and paste the entire **setup-script.ps1** script.
 
-4. In the script, add the values for **$subscriptionId** ***(1)*** and **$uniqueNumber** ***(2)*** within the double quotes. Also, update the region name in **$location** ***(3)*** if required. 
+8. In the script, add the same values that we used to create Congitive services account for **$subscriptionId** ***(1)*** and **$uniqueNumber** ***(2)*** within the double quotes. Also, update the region name in **$location** ***(3)*** if required. 
 
 
 ![Add values in setup script](../media/Intelligent-Document-Processing/Add-values.jpg)
 
 
-5. Execute the **setup-script.ps1** script. This will download all the pre-requisites in the **D:\LabFiles** directory and will start deploying the resources.
+9. Execute the **setup-script.ps1** script. This will download all the dependencies in the **D:\LabFiles** directory and will start deploying the resources.
 
 
-6. When you receive an Azure login popup, provide your Azure credentials to login. If you had previously logged in through PowerShell, then you will be prompted to select your account. Please select your account in this case.
+10. When you receive an Azure login popup, provide your Azure credentials to login. If you had previously logged in through PowerShell, then you will be prompted to select your account. Please select your account in this case.
 
  
 ![Azure Login popup](../media/Intelligent-Document-Processing/Azure-login-prompt.jpg)
 
-7. Wait for 5 minutes, then got to **portal.azure.com** and open the **Intelligent** resource group that we will use for the rest of this demo.
+11. Wait for 5 minutes, then got to **portal.azure.com** and open the **Intelligent** resource group that we will use for the rest of this demo.
 
 
 ![Select Intelligent RG](../media/Intelligent-Document-Processing/select-RG.jpg)
 
 
-8. Go back to the PowerShell window and wait for a few minutes as we manually need to authorize two API connections.
+12. Go back to the PowerShell window and wait for a few minutes as we manually need to authorize two API connections.
 
 
 ### STEP 1 - Authorize Event Grid API Connection
