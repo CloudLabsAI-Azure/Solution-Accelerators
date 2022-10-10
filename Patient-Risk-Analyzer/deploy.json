@@ -146,6 +146,15 @@
         "[concat('Microsoft.Network/networkInterfaces/', variables('networkInterfaceName1'))]"
       ],
       "properties": {
+        "osProfile": {
+          "computerName": "[variables('jumphost)]",
+          "adminUsername": "[parameters('vmAdminUsername')]",
+          "adminPassword": "[parameters('vmAdminPassword')]",
+          "windowsConfiguration": {
+            "enableAutomaticUpdates": true,
+            "provisionVmAgent": true
+          }
+        },
         "hardwareProfile": {
           "vmSize": "Standard_D4s_v3"
         },
