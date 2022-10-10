@@ -54,7 +54,7 @@ ii) Resource group: Create or Select the resource group with name **Intelligent*
 
 iii) Region: Select the region **East US** or **South Central US**. ***(3)***
 
-iv) Name: Provide the name to the cognitive services account with the naming convention "**idp<** **Enter-any-6-digits >cs**". ***(4)***
+iv) Name: Provide the name to the cognitive services account with the naming convention "**idp<** **Enter-any-6-digits >cs**". ***(4)***. For example: **idp012345cs**
 
 v) Pricing tier: Select the available pricing tier **Standard S0**. ***(5)***
 
