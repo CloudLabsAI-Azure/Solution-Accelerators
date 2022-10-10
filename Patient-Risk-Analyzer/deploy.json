@@ -200,12 +200,11 @@
             "autoUpgradeMinorVersion": true,
             "settings": {
               "fileUris": [
-                "https://experienceazure.blob.core.windows.net/templates/cloudlabs-common/cloudlabs-windows-functions.ps1",
-                "https://experienceazure.blob.core.windows.net/templates/many-models/machine-learning-patient-risk-analyzer/script/psscript.ps1"
+                "https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/Patient-Risk-Analyzer/scripts/psscript.ps1"
               ]
             },
             "protectedSettings": {
-              "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Unrestricted -File many-models/machine-learning-patient-risk-analyzer/script/psscript.ps1')]"
+              "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Unrestricted -File Patient-Risk-Analyzer/scripts/psscript.ps1')]"
             }
           }
         }
