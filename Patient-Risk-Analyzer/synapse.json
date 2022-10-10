@@ -41,7 +41,7 @@
 
     "storageContainer": "raw",
 
-    "synapseWorkspaceName": "[concat(parameters('UniquePrefixName'),'synapse-ws'),variables('uniqueName')]",
+    "synapseWorkspaceName": "[concat(parameters('UniquePrefixName'),'synapse-ws',variables('uniqueName'))]",
     "storageName": "[replace(replace(toLower(concat(concat('patient', variables('paramName')), variables('uniqueName') )),'-',''),'_','')]",
 
     "machinelearningName": "[concat('ml-', variables('paramName'))]",
@@ -157,12 +157,14 @@
       },
       "resources": [
         {
-          "condition": "[equals(parameters('AllowAllFirewallRule'),'true')]",
+         
           "type": "firewallrules",
           "apiVersion": "2019-06-01-preview",
           "name": "allowAll",
           "location": "[variables('location')]",
-          "dependsOn": [ "[variables('synapseWorkspaceName')]" ],
+          "dependsOn": [
+            "[concat('Microsoft.Synapse/workspaces/', variables('synapseWorkspaceName'))]"
+          ],
           "properties": {
             "startIpAddress": "0.0.0.0",
             "endIpAddress": "255.255.255.255"
