@@ -204,7 +204,7 @@
               ]
             },
             "protectedSettings": {
-              "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Unrestricted -File Patient-Risk-Analyzer/scripts/psscript.ps1')]"
+              "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Unrestricted -File psscript.ps1')]"
             }
           }
         }
