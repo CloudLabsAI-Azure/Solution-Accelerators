@@ -151,7 +151,10 @@
         },
         "storageProfile": {
           "imageReference": {
-            "id": "/subscriptions/32db861e-a593-4eca-bf25-0d5f247b29df/resourceGroups/aec-mgmt-rg/providers/Microsoft.Compute/galleries/sharedImageGallery/images/patientriskanalyzer-manymodels/versions/0.0.1"
+            "publisher": "MicrosoftWindowsDesktop",
+            "offer": "Windows-10",
+            "sku": "20h1-pro",
+            "version": "latest"
           },
           "osDisk": {
             "name": "[concat(variables('jumphost'),'OSDisk')]",
