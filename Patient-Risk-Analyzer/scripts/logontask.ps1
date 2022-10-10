@@ -172,20 +172,6 @@ cd C:\LabFiles
 Set-AzSynapsePipeline -WorkspaceName $synapseworkspaceName -Name "Pipeline 3" -DefinitionFile "C:\LabFiles\Pipeline 3.json"
 Invoke-AzSynapsePipeline -WorkspaceName $synapseworkspaceName -PipelineName "Pipeline 3"
 
-sleep 600
-
-cd 'C:\LabFiles\'
-
-.\validate.ps1
-
-
-#Import Common Functions
-$commonscriptpath = "C:\Packages\Plugins\Microsoft.Compute.CustomScriptExtension\1.10.12\Downloads\0\cloudlabs-common\cloudlabs-windows-functions.ps1"
-. $commonscriptpath
-
-sleep 3
-#Start the cloudlabs agent service 
-CloudlabsManualAgent Start
 
 
 Unregister-ScheduledTask -TaskName "Setup1" -Confirm:$false 
