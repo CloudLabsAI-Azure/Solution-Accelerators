@@ -11,9 +11,6 @@
     "DeploymentID": {
       "type": "string"
     },
-    "ODLID": {
-      "type": "string"
-    },
     "diskStorageType": {
       "defaultValue": "Standard_LRS",
       "allowedValues": [
