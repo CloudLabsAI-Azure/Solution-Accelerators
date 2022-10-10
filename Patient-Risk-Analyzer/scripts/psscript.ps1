@@ -317,13 +317,6 @@ Set-ItemProperty -Path $AutoLogonRegPath -Name "DefaultPassword" -Value "Passwor
 Set-ItemProperty -Path $AutoLogonRegPath -Name "AutoLogonCount" -Value "1" -type DWord
 
 #checkdeployment
-$status = (Get-AzResourceGroupDeployment -ResourceGroupName $rgName -Name "deploy02").ProvisioningState
-$status
-if ($status -eq "Succeeded")
-{
- 
-    $Validstatus="Pending"  ##Failed or Successful at the last step
-    $Validmessage="Main Deployment is successful, logontask is pending"
 
 # Scheduled Task
 $Trigger= New-ScheduledTaskTrigger -AtLogOn
@@ -331,15 +324,7 @@ $User= "$($env:ComputerName)\demouser"
 $Action= New-ScheduledTaskAction -Execute "C:\Windows\System32\WindowsPowerShell\v1.0\Powershell.exe" -Argument "-executionPolicy Unrestricted -File C:\LabFiles\docker.ps1"
 Register-ScheduledTask -TaskName "Setup" -Trigger $Trigger -User $User -Action $Action -RunLevel Highest -Force
 Set-ExecutionPolicy -ExecutionPolicy bypass -Force
- 
-}
-else {
-    Write-Warning "Validation Failed - see log output"
-    $Validstatus="Failed"  ##Failed or Successful at the last step
-    $Validmessage="ARM template Deployment Failed"
-      }
 
-CloudlabsManualAgent setStatus
 
 
 Stop-Transcript
