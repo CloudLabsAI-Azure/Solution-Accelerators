@@ -147,7 +147,7 @@
       ],
       "properties": {
         "osProfile": {
-          "computerName": "[variables('jumphost)]",
+          "computerName": "[variables('jumphost')]",
           "adminUsername": "[parameters('vmAdminUsername')]",
           "adminPassword": "[parameters('vmAdminPassword')]",
           "windowsConfiguration": {
