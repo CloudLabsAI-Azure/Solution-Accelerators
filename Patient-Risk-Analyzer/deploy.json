@@ -29,10 +29,6 @@
     "vmAdminPassword": {
       "type": "SecureString",
       "defaultValue": "Password.1!!"
-    },
-
-    "azuserobjectid": {
-      "type": "string"
     }
   },
   "variables": {
