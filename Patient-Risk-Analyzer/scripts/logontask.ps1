@@ -161,19 +161,8 @@ $contaccountName = $containerregname.Name
 (Get-Content -Path "C:\LabFiles\deployapp.ps1") | ForEach-Object {$_ -Replace  "enter_ml_service_url", $endpoint} | Set-Content -Path "C:\LabFiles\deployapp.ps1"
 (Get-Content -Path "C:\LabFiles\deployapp.ps1") | ForEach-Object {$_ -Replace  "enter_ml_bearertoken", $endkey} | Set-Content -Path "C:\LabFiles\deployapp.ps1"
 
-Start-Service *docker*
-
-#execute deployment script
-cd C:\LabFiles
-
-.\deployapp.ps1
-
-#execute pipeline 3 this run 
-Set-AzSynapsePipeline -WorkspaceName $synapseworkspaceName -Name "Pipeline 3" -DefinitionFile "C:\LabFiles\Pipeline 3.json"
-Invoke-AzSynapsePipeline -WorkspaceName $synapseworkspaceName -PipelineName "Pipeline 3"
 
 
-
-Unregister-ScheduledTask -TaskName "Setup1" -Confirm:$false 
+Unregister-ScheduledTask -TaskName "Setup" -Confirm:$false 
 Restart-Computer -Force 
 
