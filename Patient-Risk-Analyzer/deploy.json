@@ -20,21 +20,17 @@
       "type": "string"
     },
     "vmAdminUsername": {
-      "type": "string",
-      "defaultValue": "demouser"
+      "type": "string"
     },
     "vmAdminPassword": {
-      "type": "SecureString",
-      "defaultValue": "Password.1!!"
+      "type": "SecureString"
     }
   },
   "variables": {
-    "scriptvariables": "[concat(' -AzureUserName ', parameters('AzureUserName'), ' -AzurePassword ', parameters('AzurePassword'), ' -AzureTenantID ', variables('AzureTenantID'), ' -AzureSubscriptionID ', variables('AzureSubscriptionID'), ' -DeploymentID ', parameters('DeploymentID'))]",
-
+    "cloudlabsCommon": "[concat(' -AzureUserName ', parameters('AzureUserName'), ' -AzurePassword ', parameters('AzurePassword'), ' -AzureTenantID ', variables('AzureTenantID'), ' -AzureSubscriptionID ', variables('AzureSubscriptionID'),  ' -DeploymentID ', parameters('DeploymentID'),  ' -vmAdminPassword ', parameters('vmAdminPassword'))]",
     "AzureSubscriptionID": "[subscription().subscriptionId]",
     "AzureTenantID": "[subscription().tenantId]",
     "location": "[resourceGroup().location]",
-    
     "subnetPrefix": "10.0.0.0/24",
     "addressPrefix": "10.0.0.0/16",
     "jumphost": "[concat('labvm-',parameters('DeploymentID'))]",
@@ -148,24 +144,26 @@
         "[concat('Microsoft.Network/networkInterfaces/', variables('networkInterfaceName1'))]"
       ],
       "properties": {
-        "osProfile": {
+           "osProfile": {
           "computerName": "[variables('jumphost')]",
           "adminUsername": "[parameters('vmAdminUsername')]",
           "adminPassword": "[parameters('vmAdminPassword')]",
           "windowsConfiguration": {
-            "enableAutomaticUpdates": true,
             "provisionVmAgent": true
           }
         },
+        "hard
         "hardwareProfile": {
           "vmSize": "Standard_D4s_v3"
         },
         "storageProfile": {
           "imageReference": {
-           "publisher": "MicrosoftWindowsDesktop",
+            
+            "publisher": "MicrosoftWindowsDesktop",
             "offer": "Windows-10",
             "sku": "20h1-pro",
             "version": "latest"
+     
           },
           "osDisk": {
             "name": "[concat(variables('jumphost'),'OSDisk')]",
@@ -206,8 +204,7 @@
               ]
             },
             "protectedSettings": {
-              "commandToExecute":   "[concat('powershell.exe -ExecutionPolicy Unrestricted -File psscript.ps1', variables('scriptvariables'))]"
-
+              "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Unrestricted -File psscript.ps1', variables('cloudlabsCommon'))]"
             }
           }
         }
@@ -226,6 +223,10 @@
     "LABVM DNS Name": {
       "type": "String",
       "value": "[concat(variables('vmPublicIpDnsName'), '.', resourceGroup().location, '.cloudapp.azure.com')]"
+    },
+    "Trainer Password": {
+      "type": "String",
+      "value": "[parameters('trainerUserPassword')]"
     },
     "Deployment ID": {
       "type": "String",
