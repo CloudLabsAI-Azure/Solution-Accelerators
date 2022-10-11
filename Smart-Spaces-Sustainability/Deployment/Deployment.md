@@ -52,7 +52,7 @@ Then trigger the STOP Logic App to run every Hour - BUT FIVE MINUTES After the S
 This step will confirm the "back-end" deployment, the "front-end" IOTHub deployment, and all the corresponding simulation functionality.
 
 1. Download/Open the SQL Server Management Studio (SSMS) Tool: https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver16 
-2. 2. CONNECT to your newly installed Azure SQL Server Database instance:
+2. ConnectT to your newly installed Azure SQL Server Database instance:
         Server Type: Database Engine
         Server Name: <Your SQL Server Name>.database.windows.net
         Authentication: SQL Server Authentication
