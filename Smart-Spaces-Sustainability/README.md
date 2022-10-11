@@ -27,3 +27,5 @@ The Smart Spaces Solution Accelerator helps facilities managers optimize HVAC sy
 To get started, follow the steps outlined in the link below:
 
 [Deployment_Steps](https://github.com/CloudLabsAI-Azure/Solution-Accelerators/blob/main/Smart-Spaces-Sustainability/Deployment/Deployment.md)
+
+> A VM is deployed along with the template provided in [Deployment_Steps](https://github.com/CloudLabsAI-Azure/Solution-Accelerators/blob/main/Smart-Spaces-Sustainability/Deployment/Deployment.md) to make testing/performing the solution accelerator easier for users/learners who are using Mac/Linux OS, and also has other software tools installed so that users/learners need not install additional software tools on their PC/machine for this purpose.
