@@ -5,5 +5,4 @@ Be sure to follow the pre-requisites guidance in the this document: [Prerequisit
 
 When you are ready to DEPLOY - Click the Image below:
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)]
-(https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FCloudLabsAI-Azure%2FSolution-Accelerators%2Fmain%2FSmart-Spaces-Sustainability%2Ftemplates%2Fdeploy-01.json)
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FCloudLabsAI-Azure%2FSolution-Accelerators%2Fmain%2FSmart-Spaces-Sustainability%2Ftemplates%2Fdeploy-01.json)
