@@ -130,8 +130,8 @@ Function InstallAzCLI
 Function CreateCredFile($AzureUserName, $AzurePassword, $AzureTenantID, $AzureSubscriptionID, $DeploymentID)
 {
     $WebClient = New-Object System.Net.WebClient
-    $WebClient.DownloadFile("https://experienceazure.blob.core.windows.net/templates/cloudlabs-common/AzureCreds.txt","C:\LabFiles\AzureCreds.txt")
-    $WebClient.DownloadFile("https://experienceazure.blob.core.windows.net/templates/cloudlabs-common/AzureCreds.ps1","C:\LabFiles\AzureCreds.ps1")
+    $WebClient.DownloadFile("https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/Patient-Risk-Analyzer/scripts/AzureCreds.txt","C:\LabFiles\AzureCreds.txt")
+    $WebClient.DownloadFile("https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/Patient-Risk-Analyzer/scripts/AzureCreds.ps1","C:\LabFiles\AzureCreds.ps1")
     
     New-Item -ItemType directory -Path C:\LabFiles -force
 
