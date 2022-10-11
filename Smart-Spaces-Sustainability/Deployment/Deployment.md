@@ -22,7 +22,7 @@ To confirm a successful deployment, perform the following Steps:
 ##### Confirm Azure Functions - HTTP REST Operations:
 This step will confirm the IOTHub deployment and coresponding simulation functionality.
 
-1. Open the POSTMan DESKTOP Tool.
+1. Download/Open the POSTMan DESKTOP Tool: https://www.postman.com/
 2. Navigate to your installation of the Azure Function App named: FuncSMARTSPACE-HVAC.
 3. On the left-hand navigation menu, click on the "Functions" icon.
 4. Click on the NAME of the deployed function. It should be named "FuncSMARTSPACE-HVAC".
@@ -52,7 +52,7 @@ Then trigger the STOP Logic App to run every Hour - BUT FIVE MINUTES After the S
 This step will confirm the "back-end" deployment, the "front-end" IOTHub deployment, and all the corresponding simulation functionality.
 
 1. Download/Open the SQL Server Management Studio (SSMS) Tool: https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver16 
-2. ConnectT to your newly installed Azure SQL Server Database instance:
+2. Connect to your newly installed Azure SQL Server Database instance:
 
         Server Type: Database Engine
         Server Name: <Your SQL Server Name>.database.windows.net
