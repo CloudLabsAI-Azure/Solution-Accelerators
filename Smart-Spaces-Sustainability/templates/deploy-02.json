@@ -1,0 +1,364 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "_generator": {
+      "name": "bicep",
+      "version": "0.4.1124.51302",
+      "templateHash": "83557446380333556"
+    }
+  },
+  "variables": {
+    "location": "[resourceGroup().location]",
+    "rgName": "[resourceGroup().name]",
+    "rgId": "[resourceGroup().id]",
+    "batchAccountName": "[concat('batch', parameters('deploymentid'))]",
+    "batchPoolName": "[concat('batch', parameters('deploymentid'), 'pool')]",
+    "blobStorageName": "[concat('storage', parameters('deploymentid'))]",
+    "sqlDBName": "[concat('sqlDB', parameters('deploymentid'))]",
+    "serverName": "[concat('sqlserver', parameters('deploymentid'))]",
+    "dataFactoryName": "[concat('dataFactory', parameters('deploymentid'))]",
+    "keyVaultName": "[concat('keyVault', parameters('deploymentid'))]",
+    "mlWorkspaceName": "[concat('mlWorkspace', parameters('deploymentid'))]",
+    "managedidentityName": "[concat('mi', parameters('deploymentid'))]"
+  },
+  "parameters": {
+    "objectId": {
+      "type": "string",
+      "defaultValue": "enter_objectid"
+    },
+    "visualCrossingAPIKey": {
+      "type": "string",
+      "defaultValue": "TRXJHV7HLP45RU9PTLXZ6KH4L"
+    },
+    "smartspacelocation": {
+      "type": "string",
+      "defaultValue": "One Microsoft Way, Redmond, WA 98052"
+    },
+    "deploymentid": {
+      "type": "string",
+      "defaultValue": "enter_deploymentid"
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2020-10-01",
+      "name": "adf",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/Smart-Spaces-Sustainability/nested-templates/dataFactory.json",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "factoryName": {
+            "value": "[variables('dataFactoryName')]"
+          }
+        }
+      },
+      "dependsOn": []
+    },
+
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2020-10-01",
+      "name": "CreateVault",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/Smart-Spaces-Sustainability/nested-templates/secret_vault.json",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "objectId": {
+            "value": "[parameters('objectId')]"
+          },
+          "dataFactoryName": {
+            "value": "[variables('dataFactoryName')]"
+          },
+          "keyVaultName": {
+            "value": "[variables('keyVaultName')]"
+          },
+          "storageAccountName": {
+            "value": "[variables('blobStorageName')]"
+          },
+          "visualCrossingAPIKey": {
+            "value": "[parameters('visualCrossingAPIKey')]"
+          },
+          "deploymentid": {
+            "value": "[parameters('deploymentid')]"
+          },
+          "smartspacelocation": {
+            "value": "[parameters('smartspacelocation')]"
+          },
+          "storageAccessKey": {
+            "value": "[reference('storage').outputs.storageAccessKey.value]"
+          },
+          "managedIdentityName": {
+            "value": "[variables('managedidentityName')]"
+          }
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/deployments', 'adf')]",
+        "[resourceId('Microsoft.Resources/deployments', 'storage')]",
+        "[resourceId('Microsoft.Resources/deployments', 'managedIdentityforDeployScripts')]"
+      ]
+    },
+
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2020-10-01",
+      "name": "storage",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/Smart-Spaces-Sustainability/nested-templates/blob_storage_w_containers.json",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "storageAccountName": {
+            "value": "[variables('blobStorageName')]"
+          },
+          "dataFactoryName": {
+            "value": "[variables('dataFactoryName')]"
+          }
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/deployments', 'adf')]"
+      ]
+    },
+
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2020-10-01",
+      "name": "batchAccount",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/Smart-Spaces-Sustainability/nested-templates/batch.json",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "dataFactoryName": {
+            "value": "[variables('dataFactoryName')]"
+          },
+          "batchAccountName": {
+            "value": "[variables('batchAccountName')]"
+          },
+          "batchPoolName": {
+            "value": "[variables('batchPoolName')]"
+          },
+          "managedIdentity": {
+            "value": "[variables('managedidentityName')]"
+          }
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/deployments', 'CreateVault')]",
+        "[resourceId('Microsoft.Resources/deployments', 'adf')]",
+        "[resourceId('Microsoft.Resources/deployments', 'managedIdentityforDeployScripts')]"
+      ]
+    },
+
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2020-10-01",
+      "name": "azureML",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/Smart-Spaces-Sustainability/nested-templates/azure_ml.json",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "workspaceName": {
+            "value": "[variables('mlWorkspaceName')]"
+          },
+          "storageAccountOption": {
+            "value": "existing"
+          },
+          "storageAccountName": {
+            "value": "[variables('blobStorageName')]"
+          },
+          "keyVaultOption": {
+            "value": "existing"
+          },
+          "keyVaultName": {
+            "value": "[variables('keyVaultName')]"
+          }
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/deployments', 'adf')]",
+        "[resourceId('Microsoft.Resources/deployments', 'sqlServerDbwithVault')]",
+        "[resourceId('Microsoft.Resources/deployments', 'storage')]"
+      ]
+    },
+
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2020-10-01",
+      "name": "managedIdentityforDeployScripts",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/Smart-Spaces-Sustainability/nested-templates/managedIdentity.json",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "managedidentityName": {
+            "value": "[variables('managedidentityName')]"
+          }
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/deployments', 'storage')]"
+      ]
+    },
+
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2020-10-01",
+      "name": "managedIdentityRoleAssign",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/Smart-Spaces-Sustainability/nested-templates/managedIdentityRoleAssign.json",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "managedidentityName": {
+            "value": "[variables('managedidentityName')]"
+          },
+          "blobStorageName": {
+            "value": "[variables('blobStorageName')]"
+          }
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/deployments', 'managedIdentityforDeployScripts')]",
+        "[resourceId('Microsoft.Resources/deployments', 'batchAccount')]"
+      ]
+    },
+
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2020-10-01",
+      "name": "deployScripts",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/Smart-Spaces-Sustainability/nested-templates/deployScripts.json",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "storageAccountName": {
+            "value": "[variables('blobStorageName')]"
+          },
+          "identityName": {
+            "value": "[variables('managedidentityName')]"
+          },
+          "containerName": {
+            "value": "scripts"
+          }
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/deployments', 'managedIdentityRoleAssign')]",
+        "[resourceId('Microsoft.Resources/deployments', 'managedIdentityforDeployScripts')]",
+        "[resourceId('Microsoft.Resources/deployments', 'storage')]"
+      ]
+    },
+
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2020-10-01",
+      "name": "sqlServerDbwithVault",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/Smart-Spaces-Sustainability/nested-templates/linked_sql_server_db.json",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "KeyVaultName": {
+            "value": "[reference('CreateVault').outputs.keyVaultName.value]"
+          },
+          "sqlDBName": {
+            "value": "[variables('sqlDBName')]"
+          },
+          "serverName": {
+            "value": "[variables('serverName')]"
+          },
+          "storageAccountKey": {
+            "value": "[reference('storage').outputs.storageAccessKey.value]"
+          },
+          "bacpacUrl": {
+            "value": "[concat('https://', variables('blobStorageName'), '.blob.core.windows.net/scripts/smart-spaces-db.bacpac')]"
+          }
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/deployments', 'CreateVault')]",
+        "[resourceId('Microsoft.Resources/deployments', 'adf')]",
+        "[resourceId('Microsoft.Resources/deployments', 'deployScripts')]",
+        "[resourceId('Microsoft.Resources/deployments', 'storage')]"
+      ]
+    },
+
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2020-10-01",
+      "name": "adfpipelines",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/Smart-Spaces-Sustainability/nested-templates/dataFactoryProperties.json",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "factoryName": {
+            "value": "[variables('dataFactoryName')]"
+          },
+          "batchUri": {
+            "value": "[concat('https://', variables('batchAccountName'), '.', resourceGroup().location, '.batch.azure.com')]"
+          },
+          "batchPoolName": {
+            "value": "[variables('batchPoolName')]"
+          },
+          "batchAccountName": {
+            "value": "[variables('batchAccountName')]"
+          },
+          "blobStorageName": {
+            "value": "[variables('blobStorageName')]"
+          },
+          "sqlDBName": {
+            "value": "[variables('sqlDBName')]"
+          },
+          "keyVaultName": {
+            "value": "[reference('CreateVault').outputs.keyVaultName.value]"
+          },
+          "databaseConnectionString": {
+            "value": "[reference('sqlServerDbwithVault').outputs.connectionString.value]"
+          },
+          "storageAccountKey": {
+            "value": "[reference('storage').outputs.storageAccessKey.value]"
+          },
+          "location": {
+            "value": "[resourceGroup().location]"
+
+          }
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/deployments', 'adf')]",
+        "[resourceId('Microsoft.Resources/deployments', 'sqlServerDbwithVault')]",
+        "[resourceId('Microsoft.Resources/deployments', 'batchAccount')]",
+        "[resourceId('Microsoft.Resources/deployments', 'azureML')]"
+      ]
+    }
+  ]
+}
