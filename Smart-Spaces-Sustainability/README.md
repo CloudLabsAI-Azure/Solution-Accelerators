@@ -29,3 +29,9 @@ To get started, follow the steps outlined in the link below:
 [Deployment_Steps](https://github.com/CloudLabsAI-Azure/Solution-Accelerators/blob/main/Smart-Spaces-Sustainability/Deployment/Deployment.md)
 
 > A VM is deployed along with the template provided in [Deployment_Steps](https://github.com/CloudLabsAI-Azure/Solution-Accelerators/blob/main/Smart-Spaces-Sustainability/Deployment/Deployment.md) to make testing/performing the solution accelerator easier for users/learners who are using Mac/Linux OS, and has required software tools installed for users/learners to complete the solution accelerator, and they need not install additional software tools on their PC/machine for this purpose.
+
+> You can connect to the VM post [Deployment_Steps](https://github.com/CloudLabsAI-Azure/Solution-Accelerators/blob/main/Smart-Spaces-Sustainability/Deployment/Deployment.md) by RDP protocol, and using the **VM DNS Name, adminUsername, and adminPassword** from declaring earlier in [Deployment_Steps](https://github.com/CloudLabsAI-Azure/Solution-Accelerators/blob/main/Smart-Spaces-Sustainability/Deployment/Deployment.md)
+
+## Additional Notes
+
+The deployment time for this solution accelerator takes around 80-85 mins., even though the template deployment may show complete in Azure. Please wait 80-85 mins. before performing the lab because of PowerShell scripts running inside the VM.
