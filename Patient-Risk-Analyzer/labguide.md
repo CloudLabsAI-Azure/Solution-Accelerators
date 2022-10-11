@@ -36,7 +36,7 @@ The directions provided for this repository assume fundemental working knowledge
 
 ## Deploy the resources
 
-1. Copy and paste the below **Link** in the new tab of your browser and launch the template deployment.  Log in to the Azure portal using your credentials if you are prompted to do so.
+1. Click on the **Deploy to Azure** button below, and log in to Azure portal using your credentials if you are prompted to do so.
 
    [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FCloudLabsAI-Azure%2FSolution-Accelerators%2Fmain%2FPatient-Risk-Analyzer%2Fdeploy.json)
    
