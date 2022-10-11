@@ -160,9 +160,9 @@
         },
         "storageProfile": {
           "imageReference": {
-            "publisher": "MicrosoftWindowsDesktop",
-            "offer": "Windows-10",
-            "sku": "20h1-pro",
+            "publisher": "MicrosoftWindowsServer",
+            "offer": "WindowsServer",
+            "sku": "2022-datacenter-azure-edition",
             "version": "latest"
           },
           "osDisk": {
