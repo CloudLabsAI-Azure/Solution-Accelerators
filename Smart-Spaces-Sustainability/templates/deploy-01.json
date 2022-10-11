@@ -1,5 +1,5 @@
 {
-  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "$schema": "http://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
     "location": {
@@ -28,20 +28,6 @@
       "type": "string"
     },
     "DeploymentID": {
-      "type": "string"
-    },
-    "InstallCloudLabsShadow": {
-      "type": "string",
-      "defaultValue": "yes",
-      "allowedValues": [
-        "yes",
-        "no"
-      ]
-    },
-    "trainerUserName": {
-      "type": "string"
-    },
-    "trainerUserPassword": {
       "type": "string"
     },
     "SPDisplayName": {
@@ -265,10 +251,6 @@
     "Deployment ID": {
       "type": "string",
       "value":  "[parameters('DeploymentID')]"
-    },
-    "Trainer Password": {
-      "type": "String",
-      "value": "[parameters('trainerUserPassword')]"
     }
   }
 }
