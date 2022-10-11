@@ -152,7 +152,7 @@
             "provisionVmAgent": true
           }
         },
-        "hard
+     
         "hardwareProfile": {
           "vmSize": "Standard_D4s_v3"
         },
@@ -224,10 +224,7 @@
       "type": "String",
       "value": "[concat(variables('vmPublicIpDnsName'), '.', resourceGroup().location, '.cloudapp.azure.com')]"
     },
-    "Trainer Password": {
-      "type": "String",
-      "value": "[parameters('trainerUserPassword')]"
-    },
+   
     "Deployment ID": {
       "type": "String",
       "value": "[parameters('DeploymentID')]"
