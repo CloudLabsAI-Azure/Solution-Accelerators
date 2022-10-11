@@ -160,7 +160,6 @@ Enable-CopyPageContent-In-InternetExplorer
 InstallChocolatey
 DisableServerMgrNetworkPopup
 CreateLabFilesDirectory
-CreateCredFile
 DisableWindowsFirewall
 InstallAzPowerShellModule
 InstallAzCLI
@@ -168,6 +167,8 @@ InstallEdgeChromium
 }
 
 WindowsServerCommon
+
+CreateCredFile $AzureUserName, $AzurePassword, $AzureTenantID, $AzureSubscriptionID, $DeploymentID
 
 #Import creds
 $AzureUserName 
