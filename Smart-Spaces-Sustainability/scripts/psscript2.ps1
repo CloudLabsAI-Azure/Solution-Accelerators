@@ -20,8 +20,8 @@ $rgName = (Get-AzResourceGroup | Where-Object {$_.ResourceGroupName -like "*smar
 
 #Download Second-Deployment Template
 $WebClient = New-Object System.Net.WebClient
-$WebClient.DownloadFile("https://experienceazure.blob.core.windows.net/templates/many-models/smart-spaces-sustainability/deploy-03.json", "C:\LabFiles\deploy-03.json")
-$WebClient.DownloadFile("https://experienceazure.blob.core.windows.net/templates/many-models/smart-spaces-sustainability/deploy-03.parameters.json", "C:\LabFiles\deploy-03.parameters.json")
+$WebClient.DownloadFile("https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/Smart-Spaces-Sustainability/templates/deploy-03.json", "C:\LabFiles\deploy-03.json")
+$WebClient.DownloadFile("https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/Smart-Spaces-Sustainability/templates/deploy-03.parameters.json", "C:\LabFiles\deploy-03.parameters.json")
 
 $rgName = (Get-AzResourceGroup | Where-Object {$_.ResourceGroupName -like "*smart-spaces*"}).ResourceGroupName
 
@@ -60,7 +60,7 @@ sleep 300
 
 #Download Logon Task
 $WebClient = New-Object System.Net.WebClient
-$WebClient.DownloadFile("https://experienceazure.blob.core.windows.net/templates/many-models/smart-spaces-sustainability/scripts/logon.ps1","C:\LabFiles\logon.ps1")
+$WebClient.DownloadFile("https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/Smart-Spaces-Sustainability/scripts/logon.ps1","C:\LabFiles\logon.ps1")
 
 #Enable Auto-Logon
 $AutoLogonRegPath = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"
