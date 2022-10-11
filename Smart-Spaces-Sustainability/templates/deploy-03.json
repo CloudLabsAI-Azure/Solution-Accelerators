@@ -44,13 +44,13 @@
     "blobStorageAcctId": "[resourceId('Microsoft.Storage/storageAccounts', variables('blobStorageName'))]",
     "containerGroups_script_container_ps_2_7_name": "[concat('script-container-ps-2-7-', parameters('deploymentid'))]",
     "funcsmartspaceAppName": "[concat('FuncSMARTSPACE', parameters('deploymentid'))]",
-    "funcsmartspacepackageuri": "https://github.com/CloudLabsAI-Azure/Solution-Accelerators/blob/main/Smart-Spaces-Sustainability/packages/FuncSMARTSPACE_APP_Code.zip",
+    "funcsmartspacepackageuri": "https://accelsmartspaceslrs.blob.core.windows.net/zipdeploycode/FuncSMARTSPACE_APP_Code.zip",
 
     "funcsmartspacehvacAppName": "[concat('FuncSMARTSPACE-HVAC', parameters('deploymentid'))]",
-    "funcsmartspacehvacpackageuri": "https://github.com/CloudLabsAI-Azure/Solution-Accelerators/blob/main/Smart-Spaces-Sustainability/packages/FuncSMARTSPACE-HVAC_App_Code.zip",
+    "funcsmartspacehvacpackageuri": "https://accelsmartspaceslrs.blob.core.windows.net/zipdeploycode/FuncSMARTSPACE-HVAC_App_Code.zip",
 
     "funccreatetokenjwtAppName": "[concat('FuncCreateJWTTOKEN', parameters('deploymentid'))]",
-    "funccreatetokenjwtpackageuri": "https://github.com/CloudLabsAI-Azure/Solution-Accelerators/blob/main/Smart-Spaces-Sustainability/packages/FuncCreateJWTToken_App_Code.zip",
+    "funccreatetokenjwtpackageuri": "https://accelsmartspaceslrs.blob.core.windows.net/zipdeploycode/FuncCreateJWTToken_App_Code.zip",
 
     "LogicAppSSMARTSPACEName": "[concat('LogicApp-SMARTSPACE-', parameters('deploymentid'))]",
     "LogicAppSSMARTSPACEHVAC01Name": "[concat('LogicApp-SMARTSPACE-HVAC01-', parameters('deploymentid'))]",
