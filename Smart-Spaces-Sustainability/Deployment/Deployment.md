@@ -53,6 +53,7 @@ This step will confirm the "back-end" deployment, the "front-end" IOTHub deploym
 
 1. Download/Open the SQL Server Management Studio (SSMS) Tool: https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver16 
 2. ConnectT to your newly installed Azure SQL Server Database instance:
+
         Server Type: Database Engine
         Server Name: <Your SQL Server Name>.database.windows.net
         Authentication: SQL Server Authentication
@@ -62,7 +63,7 @@ This step will confirm the "back-end" deployment, the "front-end" IOTHub deploym
         > Can be retrieved by navigating to Key Vault > Secrets > sqlpwd
         > Select the current version, scroll down and click on show Secret Value. Copy the secret value and enter it as the password.
    
-           <img width="486" alt="image" src="https://user-images.githubusercontent.com/83011430/195109351-7593e544-23e4-4c98-a98e-104c877939e9.png">
+   <img width="486" alt="image" src="https://user-images.githubusercontent.com/83011430/195109351-7593e544-23e4-4c98-a98e-104c877939e9.png">
    
 3. RIGHT-CLICK on the table: [dbo].[HVACUnitIntermediate] and select "Select top 1000 rows".
 4. A new Query window will open and display the query results. 
