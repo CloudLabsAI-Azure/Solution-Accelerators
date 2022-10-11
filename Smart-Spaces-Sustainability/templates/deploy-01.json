@@ -10,7 +10,8 @@
       }
     },
     "adminUsername": {
-      "type": "string"
+      "type": "string",
+      "defaultValue": "demouser"
     },
     "adminPassword": {
       "type": "securestring"
