@@ -1,18 +1,18 @@
 # Steps to take before Deploying
 
-1. Create A Resource Group
-    1. Navigate to resource groups in Azure, and click on **Create**
-    2. Make sure to select a subscription, and provide the resource group name: "smart-spaces"
-    3. Under resource details, select the dropdown for **Region**, and select any region you wish to deploy 
+1. Create A Resource Group:
+    1. Navigate to resource groups in Azure, and click on **Create**.
+    2. Make sure to select a subscription, and provide the resource group name: "smart-spaces".
+    3. Under resource details, select the dropdown for **Region**, and select any region you wish to deploy.
 
-2. Retrieve Azure User ObjectID
-    1. Within Azure resource group, open azure cli
-    2. enter command: Get-AzADUser
+2. Retrieve Azure User ObjectID:
+    1. Within Azure resource group, open azure cli.
+    2. enter command: Get-AzADUser.
     3. Copy the Object ID associated with the desired user to request the deployment.
 
-3. Create A Service Principal
-    1. Navigate to Azure Active Directory(AAD)> App Registrations, and click on **New registration**
-    2. Make sure to provide a name to the app, and click **Register** to create the app
+3. Create A Service Principal:
+    1. Navigate to Azure Active Directory(AAD)> App Registrations, and click on **New registration**.
+    2. Make sure to provide a name to the app, and click **Register** to create the app.
     3. Upon successfully creating the app, make sure to copy the **Display name, Application(client) ID, Object ID**, and store it in a notepad for reference:
     
     
