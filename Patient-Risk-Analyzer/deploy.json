@@ -204,7 +204,7 @@
               ]
             },
             "protectedSettings": {
-              "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Unrestricted -File psscript.ps1')]"
+              "commandToExecute": "powershell.exe -ExecutionPolicy Unrestricted -File psscript.ps1"
             }
           }
         }
