@@ -11,10 +11,7 @@ Param (
 
     [string]
     $AzureSubscriptionID,
-
-    [string]
-    $ODLID,
-
+    
     [string]
     $DeploymentID,
 
@@ -22,19 +19,10 @@ Param (
     $azuserobjectid,
 
     [string]
-    $InstallCloudLabsShadow,
-
-    [string]
     $adminUsername,
 
     [string]
     $adminPassword,
-
-    [string]
-    $trainerUserName,
-
-    [string]
-    $trainerUserPassword,
 
     [string]
     $SPDisplayName,
@@ -49,7 +37,7 @@ Param (
     $SPObjectID
 )
 
-Start-Transcript -Path C:\WindowsAzure\Logs\CloudLabsCustomScriptExtension.txt -Append
+Start-Transcript -Path C:\WindowsAzure\Logs\CustomScriptExtension.txt -Append
 [Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls
 [Net.ServicePointManager]::SecurityProtocol = "tls12, tls11, tls" 
 
@@ -167,7 +155,21 @@ Function InstallSQLSMS
     $Shortcut.Save()
 }
 
-# Run Imported functions from cloudlabs-windows-functions.ps1
+Function WindowsServerCommon
+{
+[Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls
+[Net.ServicePointManager]::SecurityProtocol = "tls12, tls11, tls" 
+Disable-InternetExplorerESC
+Enable-IEFileDownload
+Enable-CopyPageContent-In-InternetExplorer
+InstallChocolatey
+DisableServerMgrNetworkPopup
+CreateLabFilesDirectory
+DisableWindowsFirewall
+InstallEdgeChromium
+}
+
+# Run decalred functions from psscript.ps1
 WindowsServerCommon
 InstallChocolatey
 InstallAzPowerShellModule
