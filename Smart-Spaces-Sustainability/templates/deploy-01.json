@@ -2,6 +2,36 @@
   "$schema": "http://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
+    "rgName":{
+      "type": "string",
+      "defaultValue": "smart-spaces"
+    },
+    "rgLocation":{
+      "type": "string",
+      "defaultValue": "eastus2",
+      "allowedValues":[
+        "eastus",
+        "southcentralus",
+        "northeurope",
+        "westeurope",
+        "westus",
+        "australiaeast",
+        "australiasoutheast",
+        "canadacentral",
+        "canadaeast",
+        "japanwest",
+        "japaneast",
+        "southindia",
+        "westindia",
+        "centralindia",
+        "koreacentral",
+        "koreasouth",
+        "westus2",
+        "uksouth",
+        "ukwest",
+        "francecentral"
+        ]
+    },
     "location": {
       "type": "string",
       "defaultValue": "[resourceGroup().location]",
@@ -71,6 +101,13 @@
           "resources": []
         }
       }
+    },
+    {
+      "name": "[parameters('rgName')]",
+      "type": "Microsoft.Resources/resourceGroups,
+      "apiVersion": "2021-04-01",
+      "location": "[parameters('rgLocation')]",
+      "properties: {}
     },
     {
       "name": "[variables('vmName')]",
