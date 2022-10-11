@@ -12,7 +12,7 @@ Import-Module -Name Az.Synapse
 
 $userName = $AzureUserName # READ FROM FILE
 $password = $AzurePassword # READ FROM FILE
-$Sid = $AzureSubscriptionID # READ FROM FILE
+$Sid = (Get-AzContext).Subscription.id
 $deployId = $DeploymentID
 $synapseworkspaceName = Get-AzResource -ResourceGroupName $rgName -ResourceType "Microsoft.Synapse/workspaces"
 $synapseworkspaceName = $workspaceName| Where-Object { $_.Name -like '*' }
