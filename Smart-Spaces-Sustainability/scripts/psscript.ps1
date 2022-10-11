@@ -180,8 +180,8 @@ InstallSQLSMS
 Function CreateCredFile($AzureUserName, $AzurePassword, $AzureTenantID, $AzureSubscriptionID, $DeploymentID, $azuserobjectid, $adminPassword, $SPDisplayName, $SPApplicationID, $SPSecretKey, $SPObjectID)
 {
     $WebClient = New-Object System.Net.WebClient
-    $WebClient.DownloadFile("https://experienceazure.blob.core.windows.net/templates/many-models/smart-spaces-sustainability/scripts/azurecreds.txt","C:\Packages\AzureCreds.txt")
-    $WebClient.DownloadFile("https://experienceazure.blob.core.windows.net/templates/many-models/smart-spaces-sustainability/scripts/azurecreds.ps1","C:\Packages\AzureCreds.ps1")
+    $WebClient.DownloadFile("https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/Smart-Spaces-Sustainability/scripts/AzureCreds.txt","C:\Packages\AzureCreds.txt")
+    $WebClient.DownloadFile("https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/Smart-Spaces-Sustainability/scripts/AzureCreds.ps1","C:\Packages\AzureCreds.ps1")
     
     New-Item -ItemType directory -Path C:\LabFiles -force
     
