@@ -22,8 +22,8 @@ To confirm a successful deployment, perform the following Steps:
 ##### Confirm Azure Functions - HTTP REST Operations:
 This step will confirm the IOTHub deployment and coresponding simulation functionality.
 
-1. Open the POSTMan DESKTOP Tool : https://www.postman.com/
-2. Navigate to your installation of the Azure Function App named: FuncSMARTSPACE-HVAC
+1. Open the POSTMan DESKTOP Tool.
+2. Navigate to your installation of the Azure Function App named: FuncSMARTSPACE-HVAC.
 3. On the left-hand navigation menu, click on the "Functions" icon.
 4. Click on the NAME of the deployed function. It should be named "FuncSMARTSPACE-HVAC".
 5. Once loaded, Click on the "Get Function Url" icon.
@@ -35,3 +35,41 @@ This step will confirm the IOTHub deployment and coresponding simulation functio
 10. Click "SEND" in the POSTMan tool and wait for a response. 
 
 A successful HTTP reponse message would be "200 OK".
+
+#### Triggering Logic App
+This step will allow you to control when and for how long - the Azure Stream Analytics service is running.
+
+There are two specific Logic Apps which you want to trigger namely: 
+
+        * LogicApp-ASA-START-...
+
+        * LogicApp-ASA-STOP-...
+
+Best practice guidance would be to run the START Logic App every Hour. 
+Then trigger the STOP Logic App to run every Hour - BUT FIVE MINUTES After the START Logic App has been triggered.
+
+##### Confirm Azure SQL Database Table population:
+This step will confirm the "back-end" deployment, the "front-end" IOTHub deployment, and all the corresponding simulation functionality.
+
+1. Download/Open the SQL Server Management Studio (SSMS) Tool: https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver16 
+2. 2. CONNECT to your newly installed Azure SQL Server Database instance:
+        Server Type: Database Engine
+        Server Name: <Your SQL Server Name>.database.windows.net
+        Authentication: SQL Server Authentication
+        Login:      <Your SQL User Name>
+        > Can be retrieved by navigating to SQL Server resource provisioned in Azure > Server admin
+        Password:   <Your SQL User Password>
+        > Can be retrieved by navigating to Key Vault > Secrets > sqlpwd
+        > Select the current version, scroll down and click on show Secret Value. Copy the secret value and enter it as the password.
+   
+           <img width="486" alt="image" src="https://user-images.githubusercontent.com/83011430/195109351-7593e544-23e4-4c98-a98e-104c877939e9.png">
+   
+3. RIGHT-CLICK on the table: [dbo].[HVACUnitIntermediate] and select "Select top 1000 rows".
+4. A new Query window will open and display the query results. 
+5. You may wish to add the following SQL to the end of the query to see the most current records: ORDER BY [DateTimeUTC] DESC
+
+A successful deployment will display newly added records to the Azure SQL table -> [dbo].[HVACUnitIntermediate]
+
+### CONGRATULATIONS! 
+
+You have now successfully provisioned and configured the Solution Accelerator!
