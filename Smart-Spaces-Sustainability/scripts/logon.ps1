@@ -22,7 +22,7 @@ $rgName = (Get-AzResourceGroup | Where-Object {$_.ResourceGroupName -like "*smar
 
 #Download DeployScript
 $WebClient = New-Object System.Net.WebClient
-$WebClient.DownloadFile("https://experienceazure.blob.core.windows.net/templates/many-models/smart-spaces-sustainability/scripts/deployscript.ps1", "C:\LabFiles\deployscript.ps1")
+$WebClient.DownloadFile("https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/Smart-Spaces-Sustainability/scripts/deployscript.ps1", "C:\LabFiles\deployscript.ps1")
 $rgName = (Get-AzResourceGroup | Where-Object {$_.ResourceGroupName -like "*smart-spaces*"}).ResourceGroupName
 
 #Retrieve Key Vault Name
