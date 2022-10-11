@@ -5,7 +5,7 @@
     2. Make sure to select a subscription, and provide the resource group name: "smart-spaces"
     3. Under resource details, select the dropdown for **Region**, and select any region you wish to deploy 
 
-2. Retrieve Azure User ObjectID.
+2. Retrieve Azure User ObjectID
     1. Within Azure resource group, open azure cli
     2. enter command: Get-AzADUser
     3. Copy the Object ID associated with the desired user to request the deployment.
