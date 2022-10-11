@@ -30,7 +30,7 @@ To get started, follow the steps outlined in the link below:
 
 > A VM is deployed along with the template provided in [Deployment_Steps](https://github.com/CloudLabsAI-Azure/Solution-Accelerators/blob/main/Smart-Spaces-Sustainability/Deployment/Deployment.md) to make testing/performing the solution accelerator easier for users/learners who are using Mac/Linux OS, and has required software tools installed for users/learners to complete the solution accelerator, and they need not install additional software tools on their PC/machine for this purpose.
 
-> You can connect to the VM post [Deployment_Steps](https://github.com/CloudLabsAI-Azure/Solution-Accelerators/blob/main/Smart-Spaces-Sustainability/Deployment/Deployment.md) by RDP protocol, and using the **VM DNS Name, adminUsername, and adminPassword** from declaring these values in [Deployment_Steps](https://github.com/CloudLabsAI-Azure/Solution-Accelerators/blob/main/Smart-Spaces-Sustainability/Deployment/Deployment.md)
+> You can connect to the VM post [Deployment_Steps](https://github.com/CloudLabsAI-Azure/Solution-Accelerators/blob/main/Smart-Spaces-Sustainability/Deployment/Deployment.md) by RDP protocol, and using the **VM DNS Name, adminUsername, and adminPassword** from declaring these values in [Deployment_Steps](https://github.com/CloudLabsAI-Azure/Solution-Accelerators/blob/main/Smart-Spaces-Sustainability/Deployment/Deployment.md).
 
 ## Additional Notes
 
