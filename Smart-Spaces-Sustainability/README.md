@@ -26,4 +26,4 @@ The Smart Spaces Solution Accelerator helps facilities managers optimize HVAC sy
 ## Get Started
 To get started, follow the steps outlined in the link below:
 
-[Deployment_Steps]()
+[Deployment_Steps](https://github.com/CloudLabsAI-Azure/Solution-Accelerators/blob/main/Smart-Spaces-Sustainability/Deployment/Deployment.md)
