@@ -335,22 +335,16 @@ sleep 2400
 (Get-Content -Path "C:\LabFiles\deployapp.ps1") | ForEach-Object {$_ -Replace  "enter_ml_service_url", $endpoint} | Set-Content -Path "C:\LabFiles\deployapp.ps1"
 (Get-Content -Path "C:\LabFiles\deployapp.ps1") | ForEach-Object {$_ -Replace  "enter_ml_bearertoken", $endkey} | Set-Content -Path "C:\LabFiles\deployapp.ps1"
 
-#execute deployment script
-cd C:\LabFiles
 
-.\deployapp.ps1
+#Docker installation
 
-#execute pipeline 3 this run 
-Set-AzSynapsePipeline -WorkspaceName $synapseworkspaceName -Name "Pipeline 3" -DefinitionFile "C:\LabFiles\Pipeline 3.json"
-Invoke-AzSynapsePipeline -WorkspaceName $synapseworkspaceName -PipelineName "Pipeline 3"
+code --install-extension ms-azuretools.vscode-docker
 
+#Install WSL
+wsl --install -d Debian
 
-$appointment= kubectl get service/appointment -o jsonpath="{.status.loadBalancer.ingress[0].ip}" -n patienthub
-$batchinference = kubectl get service/batchinference -o jsonpath="{.status.loadBalancer.ingress[0].ip}" -n patienthub
-$patient= kubectl get service/patient -o jsonpath="{.status.loadBalancer.ingress[0].ip}" -n patienthub
-$realtimeinference= kubectl get service/realtimeinference -o jsonpath="{.status.loadBalancer.ingress[0].ip}" -n patienthub
-$tts= kubectl get service/tts -o jsonpath="{.status.loadBalancer.ingress[0].ip}" -n patienthub
-
+#Install Dcoker-Desktop
+choco install docker-for-windows -y -force
 
 
 Unregister-ScheduledTask -TaskName "Setup1" -Confirm:$false 
