@@ -15,9 +15,6 @@
     "AzurePassword": {
       "type": "securestring"
     },
-    "ODLID": {
-      "type": "string"
-    },
     "DeploymentID": {
       "type": "string"
     },
