@@ -316,6 +316,16 @@ Copy-Item -Path C:\LabFiles\solutionaccelarator\* -Destination C:\LabFiles -Forc
 (Get-Content -Path "C:\LabFiles\01_train_diabetes_readmission_automl.ipynb") | ForEach-Object {$_ -Replace "enter_workspace_name", "$machinelearningaccname"} | Set-Content -Path "C:\LabFiles\01_train_diabetes_readmission_automl.ipynb"
 (Get-Content -Path "C:\LabFiles\01_train_diabetes_readmission_automl.ipynb") | ForEach-Object {$_ -Replace "enter_region", "$rgLocation"} | Set-Content -Path "C:\LabFiles\01_train_diabetes_readmission_automl.ipynb"
 
+#Docker installation
+
+code --install-extension ms-azuretools.vscode-docker
+
+#Install WSL
+wsl --install -d Debian
+
+#Install Dcoker-Desktop
+choco install docker-for-windows -y -force
+
 
 #Download LogonTask
 
