@@ -29,12 +29,6 @@
         "no"
       ]
     },
-    "trainerUserName": {
-      "type": "string"
-    },
-    "trainerUserPassword": {
-      "type": "string"
-    },
     "pricingTier": {
       "type": "string",
       "defaultValue": "premium",
@@ -87,8 +81,7 @@
   },
   "variables": {
     "subscriptionid": "[subscription().subscriptionId]",
-    "cloudlabsCommon": "[concat(' -AzureUserName ', parameters('AzureUserName'), ' -AzurePassword ', parameters('AzurePassword'), ' -AzureTenantID ', variables('AzureTenantID'), ' -AzureSubscriptionID ', variables('AzureSubscriptionID'), ' -ODLID ', parameters('ODLID'), ' -DeploymentID ', parameters('DeploymentID'),' -InstallCloudLabsShadow ', parameters('InstallCloudLabsShadow'))]",
-    "Enable-CloudLabsEmbeddedShadow": "[concat(' -vmAdminUsername ', parameters('adminUsername'), ' -trainerUserName ', parameters('trainerUserName'), ' -trainerUserPassword ', parameters('trainerUserPassword'))]",
+    "Common": "[concat(' -AzureUserName ', parameters('AzureUserName'), ' -AzurePassword ', parameters('AzurePassword'), ' -AzureTenantID ', variables('AzureTenantID'), ' -AzureSubscriptionID ', variables('AzureSubscriptionID'), ' -DeploymentID ', parameters('DeploymentID'))]",
     "AzureSubscriptionID": "[subscription().subscriptionId]",
     "AzureTenantID": "[subscription().tenantId]",
     "location": "[resourceGroup().location]",
@@ -193,7 +186,7 @@
           ]
         },
         "protectedSettings": {
-          "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Unrestricted -File solution-accelerator-many-models-master/scripts/psscripts1.ps1', variables('cloudlabsCommon'),variables('Enable-CloudLabsEmbeddedShadow'))]"
+          "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Unrestricted -File solution-accelerator-many-models-master/scripts/psscripts1.ps1', variables('Common'))]"
         }
       }
     },
@@ -323,12 +316,7 @@
           "sshSettings": {
             "sshPublicAccess": "[parameters('sshAccess')]"
           },
-          "computeInstanceAuthorizationType": "personal",
-          "personalComputeInstanceSettings": {
-            "assignedUser": {
-              "objectId": "[parameters('azuserobjectid')]",
-              "tenantId": "[variables('AzureTenantID')]"
-            }
+          "computeInstanceAuthorizationType": "personal"
           }
         }
       }
