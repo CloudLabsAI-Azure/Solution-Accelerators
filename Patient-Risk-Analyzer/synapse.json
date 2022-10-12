@@ -20,7 +20,7 @@
     "office365DisplayName":  "office",
     "tenantId": "[subscription().tenantId]",
     "paramName": "[variables('uniqueName')]",
-    "uniqueName": "[substring(uniqueString(variables('rgId')),0,4)]",
+    "uniqueName": "[parameters('UniquePrefixName')]",
 
     "storageContainer": "raw",
 
