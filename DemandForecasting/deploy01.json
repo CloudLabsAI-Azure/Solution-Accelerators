@@ -74,9 +74,6 @@
       "metadata": {
         "description": "Specifies whether SSH access should be enabled for compute instance"
       }
-    },
-    "azuserobjectid": {
-      "type": "string"
     }
   },
   "variables": {
