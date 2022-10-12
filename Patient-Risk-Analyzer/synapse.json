@@ -5,9 +5,6 @@
   "parameters": {
     "UniquePrefixName": {
       "type": "string",
-      "defaultValue": "hub",
-      "minLength": 3,
-      "maxLength": 10,
       "metadata": {
         "description": "Name prefix between 3-10 characters with only characters and numbers"
       }
