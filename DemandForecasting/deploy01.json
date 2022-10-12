@@ -305,8 +305,7 @@
           "computeInstanceAuthorizationType": "personal"
           }
         }
-      }
-    },
+      },
     {
       "type": "Microsoft.Storage/storageAccounts",
       "sku": {
