@@ -11,21 +11,6 @@
       "metadata": {
         "description": "Name prefix between 3-10 characters with only characters and numbers"
       }
-    },
-    "office365DisplayName": {
-      "type": "string",
-      "defaultValue": "office",
-      "metadata": {
-        "description": "Office 365 Email Address"
-      }
-    },
-    "AllowAllFirewallRule": {
-      "type": "string",
-      "allowedValues": [
-        "true",
-        "false"
-      ],
-      "defaultValue": "true"
     }
   },
 
@@ -34,7 +19,8 @@
     "location": "[resourceGroup().location]",
     "rgId": "[resourceGroup().id]",
     "rgName": "[resourceGroup().name]",
-
+    "AllowAllFirewallRule": "true",
+    "office365DisplayName":  "office",
     "tenantId": "[subscription().tenantId]",
     "paramName": "[variables('uniqueName')]",
     "uniqueName": "[substring(uniqueString(variables('rgId')),0,4)]",
@@ -873,7 +859,7 @@
         "api": {
           "id": "[concat(subscription().id, '/providers/Microsoft.Web/locations/', variables('location'), '/managedApis/', 'office365')]"
         },
-        "displayName": "[parameters('office365DisplayName')]"
+        "displayName": "[variables('office365DisplayName')]"
       }
     },
     {
