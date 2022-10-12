@@ -168,7 +168,7 @@ InstallEdgeChromium
 
 WindowsServerCommon
 
-CreateCredFile $AzureUserName, $AzurePassword, $AzureTenantID, $AzureSubscriptionID, $DeploymentID
+CreateCredFile $AzureUserName $AzurePassword $AzureTenantID $AzureSubscriptionID $DeploymentID
 
 #Import creds
 $AzureUserName 
