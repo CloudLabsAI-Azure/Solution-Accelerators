@@ -189,7 +189,6 @@ $params = @{
 }
 
 $rgName = (Get-AzResourceGroup | Where-Object { $_.ResourceGroupName -like "many*" }).ResourceGroupName
-New-AzResourceGroupDeployment -ResourceGroupName $rgName -TemplateUri https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/Patient-Risk-Analyzer/synapse.json -TemplateParameterUri https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/Patient-Risk-Analyzer/synapse.parameters.json
 
 New-AzResourceGroupDeployment -ResourceGroupName $rgName `
   -TemplateUri "https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/Patient-Risk-Analyzer/synapse.json" `
