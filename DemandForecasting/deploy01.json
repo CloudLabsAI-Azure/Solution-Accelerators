@@ -167,12 +167,12 @@
         "autoUpgradeMinorVersion": true,
         "settings": {
           "fileUris": [
-            "https://experienceazure.blob.core.windows.net/templates/cloudlabs-common/cloudlabs-windows-functions.ps1",
-            "https://experienceazure.blob.core.windows.net/templates/solution-accelerator-many-models-master/scripts/psscripts1.ps1"
+       
+            "https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/DemandForecasting/psscripts1.ps1"
           ]
         },
         "protectedSettings": {
-          "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Unrestricted -File solution-accelerator-many-models-master/scripts/psscripts1.ps1', variables('Common'))]"
+          "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Unrestricted -File psscripts1.ps1', variables('Common'))]"
         }
       }
     },
