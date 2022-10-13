@@ -181,6 +181,18 @@ $SubscriptionId = "$($creds.AzureSubscriptionID)"
 $passwd = ConvertTo-SecureString $AzurePassword -AsPlainText -Force
 $cred = new-object -typename System.Management.Automation.PSCredential -argumentlist $AzureUserName, $passwd
 
+Function InstallAzPowerShellModule
+{
+    <#Install-PackageProvider NuGet -Force
+    Set-PSRepository PSGallery -InstallationPolicy Trusted
+    Install-Module Az -Repository PSGallery -Force -AllowClobber#>
+
+    $WebClient = New-Object System.Net.WebClient
+    $WebClient.DownloadFile("https://github.com/Azure/azure-powershell/releases/download/v5.0.0-October2020/Az-Cmdlets-5.0.0.33612-x64.msi","C:\Packages\Az-Cmdlets-5.0.0.33612-x64.msi")
+    sleep 5
+    Start-Process msiexec.exe -Wait '/I C:\Packages\Az-Cmdlets-5.0.0.33612-x64.msi /qn' -Verbose 
+
+}
 
 
 InstallAzPowerShellModule
@@ -191,7 +203,8 @@ $parm = "man"+$Uniquestr
 Import-Module Az
 Connect-AzAccount -Credential $cred
 Select-AzSubscription -SubscriptionId $SubscriptionId
-New-AzResourceGroupDeployment -ResourceGroupName "many-models-$Uniquestr" -TemplateUri https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/Azure%20Synapse%20Content%20Recommendations%20Solution%20Accelerator/azuredeploy.json -prefixName $parm
+$rgName = (Get-AzResourceGroup | Where-Object { $_.ResourceGroupName -like "many*" }).ResourceGroupName
+New-AzResourceGroupDeployment -ResourceGroupName $rgName -TemplateUri https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/Azure%20Synapse%20Content%20Recommendations%20Solution%20Accelerator/azuredeploy.json -prefixName $parm
 
 #storage copy
 $userName = $AzureUserName
@@ -205,7 +218,7 @@ $cred = new-object -typename System.Management.Automation.PSCredential -argument
 
 Connect-AzAccount -Credential $cred | Out-Null
 
-$rgName = (Get-AzResourceGroup | Where-Object { $_.ResourceGroupName -like "many*" }).ResourceGroupName
+
 $storageAccounts = Get-AzResource -ResourceGroupName $rgName -ResourceType "Microsoft.Storage/storageAccounts"
 $storageName = $storageAccounts | Where-Object { $_.Name -like 'ma*' }
 $storage = Get-AzStorageAccount -ResourceGroupName $rgName -Name $storageName.Name
