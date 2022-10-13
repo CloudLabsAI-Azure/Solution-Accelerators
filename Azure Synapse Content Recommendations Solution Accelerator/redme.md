@@ -1,0 +1,1 @@
+Azure Synapse Content Recommendations Solution Accelerator
