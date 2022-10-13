@@ -1,0 +1,94 @@
+{
+    "name": "Pipeline 1",
+    "properties": {
+        "activities": [
+            {
+                "name": "01-Load-Data",
+                "type": "SynapseNotebook",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "7.00:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "notebook": {
+                        "referenceName": "01-Load-Data",
+                        "type": "NotebookReference"
+                    },
+                    "snapshot": true,
+                    "sparkPool": {
+                        "referenceName": "spark1",
+                        "type": "BigDataPoolReference"
+                    }
+                }
+            },
+            {
+                "name": "02-Train-Model",
+                "type": "SynapseNotebook",
+                "dependsOn": [
+                    {
+                        "activity": "01-Load-Data",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "7.00:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "notebook": {
+                        "referenceName": "02-Train-Model",
+                        "type": "NotebookReference"
+                    },
+                    "snapshot": true,
+                    "sparkPool": {
+                        "referenceName": "spark1",
+                        "type": "BigDataPoolReference"
+                    }
+                }
+            },
+            {
+                "name": "03-Recommendations",
+                "type": "SynapseNotebook",
+                "dependsOn": [
+                    {
+                        "activity": "02-Train-Model",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "7.00:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "notebook": {
+                        "referenceName": "03-Recommendations",
+                        "type": "NotebookReference"
+                    },
+                    "snapshot": true,
+                    "sparkPool": {
+                        "referenceName": "spark1",
+                        "type": "BigDataPoolReference"
+                    }
+                }
+            }
+        ],
+        "annotations": []
+    }
+}
