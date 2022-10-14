@@ -19,7 +19,7 @@ Below is a sample view of the initial Azure deployment screen and the parameter 
 2. Select the resource group created earlier.
 3. And provide the necessary details for the remaining fields and click on **Review+Create**.
 
-<img width="426" alt="contentrecomendation" src="https://user-images.githubusercontent.com/83076341/195816776-2630bc93-b39d-4831-ac1f-52fd1fc1c9c1.png">
+   <img width="426" alt="contentrecomendation" src="https://user-images.githubusercontent.com/83076341/195816776-2630bc93-b39d-4831-ac1f-52fd1fc1c9c1.png">
 
 
 # Visualize the personalized recommendations using a Power BI dashboard:
@@ -31,13 +31,17 @@ Below is a sample view of the initial Azure deployment screen and the parameter 
 4. Cancel the Refresh pop-up since the data source needs to be updated
 5. Click `Transform data > Data source settings > Change Source...` from the top menu
 
-    ![Power BI data source settings](./images/pbi-sql-server.png)  
+   <img width="641" alt="content1" src="https://user-images.githubusercontent.com/83076341/195826147-dd46371c-d5e7-46ef-9fa0-9af9e0882000.png">
+
 6. Update the Server field with your `Serverless SQL endpoint` which can be found within `Azure > Synapse workspace > Overview`.
 
-    ![Azure Synapse SQL endpoint](./images/azure-synapse-sql.png)  
+   <img width="848" alt="content2" src="https://user-images.githubusercontent.com/83076341/195826092-eaa612c1-510b-49c1-b56d-3cfca2857efb.png">
+
 7. Keep database as `default` and click `OK`
 
 # Congratulations
 You have completed this solution accelerator and should now have a report to explore the personalized recommendations:
 
-![Power BI report](./images/pbi-report.png)   
+   ![content4](https://user-images.githubusercontent.com/83076341/195826516-4bddbe33-743e-4cfb-badf-c1516773ccd5.png)
+
+
