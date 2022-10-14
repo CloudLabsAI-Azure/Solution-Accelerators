@@ -48,7 +48,7 @@ Function CreateCredFile($AzureUserName, $AzurePassword, $AzureTenantID, $AzureSu
 }
 
 
-CreateCredFile $AzureUserName $AzurePassword $AzureTenantID $AzureSubscriptionID $Uniquestr
+CreateCredFile $AzureUserName $AzurePassword $AzureTenantID $AzureSubscriptionID $DeploymentID
 
 
 
