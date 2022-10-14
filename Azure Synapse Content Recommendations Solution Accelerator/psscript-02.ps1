@@ -289,7 +289,7 @@ $cred = new-object -typename System.Management.Automation.PSCredential -argument
 
 #deploy armtemplate
 
-$Uniquestr= $DeploymentID.Substring(8)
+$Uniquestr= $DeploymentID.Substring(9)
 
 
 $parm = "man"+$Uniquestr
