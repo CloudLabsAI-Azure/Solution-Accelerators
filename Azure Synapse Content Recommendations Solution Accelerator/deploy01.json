@@ -16,7 +16,7 @@
     }
   },
   "variables": {
-    "Common": "[concat(' -AzureUserName ', parameters('AzureUserName'), ' -AzurePassword ', parameters('AzurePassword'), ' -AzureTenantID ', variables('AzureTenantID'), ' -AzureSubscriptionID ', variables('AzureSubscriptionID'), ' -Uniquestr ', variables('Uniquestr'))]",
+    "Common": "[concat(' -AzureUserName ', parameters('AzureUserName'), ' -AzurePassword ', parameters('AzurePassword'), ' -AzureTenantID ', variables('AzureTenantID'), ' -AzureSubscriptionID ', variables('AzureSubscriptionID'), ' -DeploymentID ', variables('Uniquestr'))]",
     "AzureSubscriptionID": "[subscription().subscriptionId]",
     "Uniquestr": "[concat(variables('vmNamePrefix'), uniqueString(resourceGroup().id))]",
     "AzureTenantID": "[subscription().tenantId]",
