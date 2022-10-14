@@ -208,7 +208,15 @@ Import-Module Az
 Connect-AzAccount -Credential $cred
 Select-AzSubscription -SubscriptionId $SubscriptionId
 $rgName = (Get-AzResourceGroup | Where-Object { $_.ResourceGroupName -like "many*" }).ResourceGroupName
-New-AzResourceGroupDeployment -ResourceGroupName $rgName -TemplateUri https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/Azure%20Synapse%20Content%20Recommendations%20Solution%20Accelerator/azuredeploy.json -prefixName $parm
+$WebClient = New-Object System.Net.WebClient
+$WebClient.DownloadFile("https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/Azure%20Synapse%20Content%20Recommendations%20Solution%20Accelerator/azuredeploy.json", "C:\LabFiles\azuredeploy.json")
+$WebClient.DownloadFile("https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/Azure%20Synapse%20Content%20Recommendations%20Solution%20Accelerator/azuredeployparm.json","C:\LabFiles\azuredeployparm.json")
+
+
+(Get-Content -Path "C:\LabFiles\azuredeployparm.json") | ForEach-Object {$_ -Replace 'abc', $parm} | Set-Content -Path "C:\LabFiles\azuredeployparm.json"
+
+New-AzResourceGroupDeployment -ResourceGroupName $rgName -TemplateFile "C:\LabFiles\azuredeploy.json" -TemplateParameterFile "C:\LabFiles\azuredeployparm.json"
+
 
 #storage copy
 $userName = $AzureUserName
