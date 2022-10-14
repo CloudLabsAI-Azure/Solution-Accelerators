@@ -152,7 +152,7 @@ DisableWindowsFirewall
 InstallEdgeChromium
 }
 
-# Run Imported functions from cloudlabs-windows-functions.ps1
+# Run declared functions from psscript.ps1
 WindowsServerCommon
 InstallAzPowerShellModule
 InstallChocolatey
