@@ -18,7 +18,7 @@
       "type": "string"
     },
     "variables": {
-      "Common": "[concat(' -AzureUserName ', parameters('AzureUserName'), ' -AzurePassword ', parameters('AzurePassword'), ' -AzureTenantID ', variables('AzureTenantID'), ' -AzureSubscriptionID ', variables('AzureSubscriptionID'),' -DeploymentID ', parameters('DeploymentID'))]",
+      "Common": "[concat(' -AzureUserName ', parameters('AzureUserName'), ' -AzurePassword ', parameters('AzurePassword'), ' -AzureTenantID ', variables('AzureTenantID'), ' -AzureSubscriptionID ', variables('AzureSubscriptionID'), ' -DeploymentID ', parameters('DeploymentID'),' -adminUsername ', parameters('adminUsername'),' -adminPassword ', parameters('adminPassword'))]",
       "AzureSubscriptionID": "[subscription().subscriptionId]",
       "AzureTenantID": "[subscription().tenantId]",
       "virtualNetworkName": "vNet",
