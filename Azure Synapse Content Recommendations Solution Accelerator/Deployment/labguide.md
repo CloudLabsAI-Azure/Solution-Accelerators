@@ -25,7 +25,7 @@ Below is a sample view of the initial Azure deployment screen and the parameter 
 # Visualize the personalized recommendations using a Power BI dashboard:
 
 
-1. Once the logon script is successfully completed Navigate to Virtual Machine.
+1. Once the logon script is successfully completed on Virtual Machine.
 2. Open the [ContentRecommendations.pbit] file which is on **Desktop**.
 3. If it is ask for signin login the azure credentials.
 4. Cancel the Refresh pop-up since the data source needs to be updated
