@@ -13,7 +13,13 @@ Param (
     $AzureSubscriptionID,
 
     [string]
-    $DeploymentID,    
+    $DeploymentID,
+    
+    [string]
+    $adminUsername,
+    
+    [string]
+    $adminPassword
 )
 
 Start-Transcript -Path C:\WindowsAzure\Logs\CustomScriptExtension.txt -Append
@@ -155,8 +161,8 @@ InstallChocolatey
 Function CreateCredFile($AzureUserName, $AzurePassword, $AzureTenantID, $AzureSubscriptionID, $DeploymentID, $azuserobjectid, $adminPassword, $SPDisplayName, $SPApplicationID, $SPSecretKey, $SPObjectID)
 {
     $WebClient = New-Object System.Net.WebClient
-    $WebClient.DownloadFile("https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/Smart-Spaces-Sustainability/scripts/AzureCreds.txt","C:\Packages\AzureCreds.txt")
-    $WebClient.DownloadFile("https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/Smart-Spaces-Sustainability/scripts/AzureCreds.ps1","C:\Packages\AzureCreds.ps1")
+    $WebClient.DownloadFile("https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/AI-Powered-Call-Center-Intelligence-Solution-Accelerator/scripts/AzureCreds.txt","C:\Packages\AzureCreds.txt")
+    $WebClient.DownloadFile("https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/AI-Powered-Call-Center-Intelligence-Solution-Accelerator/scripts/AzureCreds.ps1","C:\Packages\AzureCreds.ps1")
     
     New-Item -ItemType directory -Path C:\LabFiles -force
     
@@ -165,47 +171,29 @@ Function CreateCredFile($AzureUserName, $AzurePassword, $AzureTenantID, $AzureSu
     (Get-Content -Path "C:\Packages\AzureCreds.txt") | ForEach-Object {$_ -Replace "AzureTenantIDValue", "$AzureTenantID"} | Set-Content -Path "C:\Packages\AzureCreds.txt"
     (Get-Content -Path "C:\Packages\AzureCreds.txt") | ForEach-Object {$_ -Replace "AzureSubscriptionIDValue", "$AzureSubscriptionID"} | Set-Content -Path "C:\Packages\AzureCreds.txt"
     (Get-Content -Path "C:\Packages\AzureCreds.txt") | ForEach-Object {$_ -Replace "DeploymentIDValue", "$DeploymentID"} | Set-Content -Path "C:\Packages\AzureCreds.txt"
-    (Get-Content -Path "C:\Packages\AzureCreds.txt") | ForEach-Object {$_ -Replace "AzureUserObjectIDValue", "$azuserobjectid"} | Set-Content -Path "C:\Packages\AzureCreds.txt"
+    (Get-Content -Path "C:\Packages\AzureCreds.txt") | ForEach-Object {$_ -Replace "AdminUsernameValue", "$adminUsername"} | Set-Content -Path "C:\Packages\AzureCreds.txt"
     (Get-Content -Path "C:\Packages\AzureCreds.txt") | ForEach-Object {$_ -Replace "AdminPasswordValue", "$adminPassword"} | Set-Content -Path "C:\Packages\AzureCreds.txt"
-    (Get-Content -Path "C:\Packages\AzureCreds.txt") | ForEach-Object {$_ -Replace "SPDisplayName", "$SPDisplayName"} | Set-Content -Path "C:\Packages\AzureCreds.txt"
-    (Get-Content -Path "C:\Packages\AzureCreds.txt") | ForEach-Object {$_ -Replace "SPApplicationID", "$SPApplicationID"} | Set-Content -Path "C:\Packages\AzureCreds.txt"
-    (Get-Content -Path "C:\Packages\AzureCreds.txt") | ForEach-Object {$_ -Replace "SPSecretKey", "$SPSecretKey"} | Set-Content -Path "C:\Packages\AzureCreds.txt"
-    (Get-Content -Path "C:\Packages\AzureCreds.txt") | ForEach-Object {$_ -Replace "SPObjectID", "$SPObjectID"} | Set-Content -Path "C:\Packages\AzureCreds.txt"
-
-         
+       
     (Get-Content -Path "C:\Packages\AzureCreds.ps1") | ForEach-Object {$_ -Replace "AzureUserNameValue", "$AzureUserName"} | Set-Content -Path "C:\Packages\AzureCreds.ps1"
     (Get-Content -Path "C:\Packages\AzureCreds.ps1") | ForEach-Object {$_ -Replace "AzurePasswordValue", "$AzurePassword"} | Set-Content -Path "C:\Packages\AzureCreds.ps1"
     (Get-Content -Path "C:\Packages\AzureCreds.ps1") | ForEach-Object {$_ -Replace "AzureTenantIDValue", "$AzureTenantID"} | Set-Content -Path "C:\Packages\AzureCreds.ps1"
     (Get-Content -Path "C:\Packages\AzureCreds.ps1") | ForEach-Object {$_ -Replace "AzureSubscriptionIDValue", "$AzureSubscriptionID"} | Set-Content -Path "C:\Packages\AzureCreds.ps1"
     (Get-Content -Path "C:\Packages\AzureCreds.ps1") | ForEach-Object {$_ -Replace "DeploymentIDValue", "$DeploymentID"} | Set-Content -Path "C:\Packages\AzureCreds.ps1"
-    (Get-Content -Path "C:\Packages\AzureCreds.ps1") | ForEach-Object {$_ -Replace "AzureUserObjectIDValue", "$azuserobjectid"} | Set-Content -Path "C:\Packages\AzureCreds.ps1"
+    (Get-Content -Path "C:\Packages\AzureCreds.ps1") | ForEach-Object {$_ -Replace "AdminUsernameValue", "$adminUsername"} | Set-Content -Path "C:\Packages\AzureCreds.ps1"
     (Get-Content -Path "C:\Packages\AzureCreds.ps1") | ForEach-Object {$_ -Replace "AdminPasswordValue", "$adminPassword"} | Set-Content -Path "C:\Packages\AzureCreds.ps1"
-    (Get-Content -Path "C:\Packages\AzureCreds.ps1") | ForEach-Object {$_ -Replace "SPDisplayName", "$SPDisplayName"} | Set-Content -Path "C:\Packages\AzureCreds.ps1"
-    (Get-Content -Path "C:\Packages\AzureCreds.ps1") | ForEach-Object {$_ -Replace "SPApplicationID", "$SPApplicationID"} | Set-Content -Path "C:\Packages\AzureCreds.ps1"
-    (Get-Content -Path "C:\Packages\AzureCreds.ps1") | ForEach-Object {$_ -Replace "SPSecretKey", "$SPSecretKey"} | Set-Content -Path "C:\Packages\AzureCreds.ps1"
-    (Get-Content -Path "C:\Packages\AzureCreds.ps1") | ForEach-Object {$_ -Replace "SPObjectID", "$SPObjectID"} | Set-Content -Path "C:\Packages\AzureCreds.ps1"
-
+  
     Copy-Item "C:\Packages\AzureCreds.txt" -Destination "C:\Users\Public\Desktop"
 }
 
 #Download power Bi desktop
-
 $WebClient = New-Object System.Net.WebClient
-
 $WebClient.DownloadFile("https://download.microsoft.com/download/8/8/0/880BCA75-79DD-466A-927D-1ABF1F5454B0/PBIDesktopSetup_x64.exe","C:\LabFiles\PBIDesktop_x64.exe")
 
-
-#INstall power Bi desktop
-
+#Install power Bi desktop
 Start-Process -FilePath "C:\LabFiles\PBIDesktop_x64.exe" -ArgumentList '-quiet','ACCEPT_EULA=1'
-
 [Environment]::SetEnvironmentVariable("PBI_enableWebView2Preview","0", "Machine")
 
 sleep 10
-
-Enable-CloudLabsEmbeddedShadow azureuser trainer Password.!!1
-
-
 
 #Copy PowerBI file to the Desktop
 $WebClient = New-Object System.Net.WebClient
@@ -216,79 +204,64 @@ Copy-Item -Path C:\LabFiles\SpeechInsights.pbit -Destination C:\Users\public\Des
 Copy-Item -Path C:\LabFiles\SentimentInsights.pbit -Destination C:\Users\public\Desktop -Force
 
 #Import creds
+. C:\Packages\AzureCreds.ps1
 
-. C:\LabFiles\AzureCreds.ps1
+$userName = $AzureUserName
+$password = $AzurePassword
+$vmUsername = $adminUsername
+$vmPassword = $adminPassword
+$deployID = $DeploymentID
+$securePassword = $password | ConvertTo-SecureString -AsPlainText -Force
+$cred = new-object -typename System.Management.Automation.PSCredential -argumentlist $userName, $SecurePassword
 
-$AzureUserName 
-$AzurePassword 
-$passwd = ConvertTo-SecureString $AzurePassword -AsPlainText -Force
-$cred = new-object -typename System.Management.Automation.PSCredential -argumentlist $AzureUserName, $passwd
-
-
-
+Connect-AzAccount -Credential $cred | Out-Null
 
 #deploy armtemplate
-$deployID = $DeploymentID
 Import-Module Az
-Connect-AzAccount -Credential $cred
-Select-AzSubscription -SubscriptionId $AzureSubscriptionID
-New-AzResourceGroupDeployment -ResourceGroupName "many-models-$DeploymentID" -TemplateUri  https://experienceazure.blob.core.windows.net/templates/many-models/ai-powered-call-center/deploy-02.json -DeploymentID $deployID 
-
+New-AzResourceGroupDeployment -ResourceGroupName "many-models-$DeploymentID" -TemplateUri  deploy-02.json -DeploymentID $deployID 
 
 choco install dotnetcore-sdk
 
 Function InstallNodeJS
 {
-
     choco install nodejs -y -force
-
 }
-
 InstallNodeJS
 
 Function InstallVSCode
 {
-
     choco install vscode -y -force
-
 }
-
 InstallVSCode
 
 Function InstallDotNet4.5
 {
-
     choco install dotnet4.5 -y -force
-
 }
-
 InstallDotNet4.5
 
 Function InstallDotNetFW4.8
 {
-
     choco install dotnetfx -y -force
-
 }
-
 InstallDotNetFW4.8
 
 
 #Download LogonTask
 $WebClient = New-Object System.Net.WebClient
-$WebClient.DownloadFile("https://experienceazure.blob.core.windows.net/templates/many-models/ai-powered-call-center/scripts/logon.ps1","C:\LabFiles\logon.ps1")
+$WebClient.DownloadFile("logon.ps1","C:\LabFiles\logon.ps1")
 
 
 #Enable Auto-Logon
 $AutoLogonRegPath = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"
 Set-ItemProperty -Path $AutoLogonRegPath -Name "AutoAdminLogon" -Value "1" -type String
-Set-ItemProperty -Path $AutoLogonRegPath -Name "DefaultUsername" -Value "$($env:ComputerName)\demouser" -type String
-Set-ItemProperty -Path $AutoLogonRegPath -Name "DefaultPassword" -Value "Password.1!!" -type String
+Set-ItemProperty -Path $AutoLogonRegPath -Name "DefaultUsername" -Value "$($env:ComputerName)\$vmUsername" -type String
+Set-ItemProperty -Path $AutoLogonRegPath -Name "DefaultPassword" -Value "$vmPassword" -type String
 Set-ItemProperty -Path $AutoLogonRegPath -Name "AutoLogonCount" -Value "1" -type DWord
 
 # Scheduled Task
 $Trigger= New-ScheduledTaskTrigger -AtLogOn
-$User= "$($env:ComputerName)\demouser"
+$User= "$($env:ComputerName)\$vmUsername"
 $Action= New-ScheduledTaskAction -Execute "C:\Windows\System32\WindowsPowerShell\v1.0\Powershell.exe" -Argument "-executionPolicy Unrestricted -File C:\LabFiles\logon.ps1"
 Register-ScheduledTask -TaskName "Setup" -Trigger $Trigger -User $User -Action $Action -RunLevel Highest -Force
 Set-ExecutionPolicy -ExecutionPolicy bypass -Force
