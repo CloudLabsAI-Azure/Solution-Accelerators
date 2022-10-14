@@ -17,6 +17,6 @@ Below is a sample view of the initial Azure deployment screen and the parameter 
 
 1. Make sure to select a subsription.
 2. Select the resource group created earlier.
-3. And provide the necessary details for the remaining fields.
+3. And provide the necessary details for the remaining fields and click on **Review+Create**.
 
 <img width="426" alt="contentrecomendation" src="https://user-images.githubusercontent.com/83076341/195816776-2630bc93-b39d-4831-ac1f-52fd1fc1c9c1.png">
