@@ -11,7 +11,7 @@
 
 When you are ready to DEPLOY - Click on the **Deploy to Azure** button:
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FCloudLabsAI-Azure%2FSolution-Accelerators%2Fmain%2FAzure%20Synapse%20Content%20Recommendations%20Solution%20Accelerator%2Fdeploy01.json))
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FCloudLabsAI-Azure%2FSolution-Accelerators%2Fmain%2FAzure%20Synapse%20Content%20Recommendations%20Solution%20Accelerator%2Fdeploy01.json)
 
 Below is a sample view of the initial Azure deployment screen and the parameter values required:
 
