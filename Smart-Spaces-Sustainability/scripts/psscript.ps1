@@ -169,7 +169,7 @@ DisableWindowsFirewall
 InstallEdgeChromium
 }
 
-# Run decalred functions from psscript.ps1
+# Run declared functions from psscript.ps1
 WindowsServerCommon
 InstallChocolatey
 InstallAzPowerShellModule
