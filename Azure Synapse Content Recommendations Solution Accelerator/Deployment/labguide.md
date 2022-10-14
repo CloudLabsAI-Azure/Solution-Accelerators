@@ -19,5 +19,4 @@ Below is a sample view of the initial Azure deployment screen and the parameter 
 2. Select the resource group created earlier.
 3. And provide the necessary details for the remaining fields.
 
-   <img width="368" alt="image" src="https://user-images.githubusercontent.com/83011430/195091911-12a3e24e-6d01-4ef3-a25f-2c476481518e.png">
 <img width="426" alt="contentrecomendation" src="https://user-images.githubusercontent.com/83076341/195816776-2630bc93-b39d-4831-ac1f-52fd1fc1c9c1.png">
