@@ -20,3 +20,24 @@ Below is a sample view of the initial Azure deployment screen and the parameter 
 3. And provide the necessary details for the remaining fields and click on **Review+Create**.
 
 <img width="426" alt="contentrecomendation" src="https://user-images.githubusercontent.com/83076341/195816776-2630bc93-b39d-4831-ac1f-52fd1fc1c9c1.png">
+
+
+# Visualize the personalized recommendations using a Power BI dashboard:
+
+
+1. Once the logon script is successfully completed Navigate to Virtual Machine.
+2. Open the [ContentRecommendations.pbit] file which is on **Desktop**.
+3. If it is ask for signin login the azure credentials.
+4. Cancel the Refresh pop-up since the data source needs to be updated
+5. Click `Transform data > Data source settings > Change Source...` from the top menu
+
+    ![Power BI data source settings](./images/pbi-sql-server.png)  
+6. Update the Server field with your `Serverless SQL endpoint` which can be found within `Azure > Synapse workspace > Overview`.
+
+    ![Azure Synapse SQL endpoint](./images/azure-synapse-sql.png)  
+7. Keep database as `default` and click `OK`
+
+# Congratulations
+You have completed this solution accelerator and should now have a report to explore the personalized recommendations:
+
+![Power BI report](./images/pbi-report.png)   
