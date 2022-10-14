@@ -5,7 +5,7 @@
   "parameters": {
     "prefixName": {
       "type": "string",
-      "defaultValue": "recommend",
+      "defaultValue": "many",
       "minLength": 3,
       "maxLength": 10,
       "metadata": {
