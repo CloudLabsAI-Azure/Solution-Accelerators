@@ -13,7 +13,7 @@ Import-Module -Name Az.Synapse
 $userName = $AzureUserName # READ FROM FILE
 $password = $AzurePassword # READ FROM FILE
 $Sid = $AzureSubscriptionID # READ FROM FILE
-$deployId = $Uniquestr.Substring(9)
+$deployId = $DeploymentID.Substring(9)
 $synapseworkspaceName = "man"+$deployId+"-synapse-workspace"
 
 
