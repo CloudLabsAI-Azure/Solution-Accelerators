@@ -99,10 +99,7 @@
           "fileUris": [
             "https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/AI-Powered-Insurance-Claims-Automation-Solution-Accelerator/scripts/psscript.ps1"
           ],
-
-          "protectedSettings": {
           "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Unrestricted -File psscript.ps1', variables('Common'))]"
-        }
 
         }
 
