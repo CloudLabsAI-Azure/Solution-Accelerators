@@ -187,6 +187,7 @@ Function CreateCredFile($AzureUserName, $AzurePassword, $AzureTenantID, $AzureSu
 
 . C:\LabFiles\AzureCreds.ps1
 
+
 $userName = $AzureUserName
 $password = $AzurePassword
 $vmUsername = $adminUsername
@@ -197,7 +198,10 @@ $cred = new-object -typename System.Management.Automation.PSCredential -argument
 $userName, $SecurePassword
 
 Connect-AzAccount -Credential $cred | Out-Null
-
+Function InstallAzCLI
+{
+    choco install azure-cli -y -force
+}
 sleep 5
 Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
 Set-PSRepository -Name "PSGallery" -Installationpolicy Trusted
@@ -214,7 +218,7 @@ Import-Module AzureAD
 Import-Module -Name AzTable
 InstallEdgeChromium
 
-. C:\Users\Public\Desktop\AutomationInsuranceClaim\deploy.ps1
+
 
 
 
