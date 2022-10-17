@@ -218,7 +218,7 @@ Import-Module AzureAD
 Import-Module -Name AzTable
 InstallEdgeChromium
 
-
+. C:\Users\Public\Desktop\AutomationInsuranceClaim\deploy.ps1
 
 
 
