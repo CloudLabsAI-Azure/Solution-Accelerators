@@ -97,5 +97,7 @@ $destUrl
 
 C:\LabFiles\azcopy.exe copy $srcUrl $destUrl --recursive
 
+Unregister-ScheduledTask -TaskName "Setup" -Confirm:$false
+
 Stop-Transcript
 Restart-Computer -Force
