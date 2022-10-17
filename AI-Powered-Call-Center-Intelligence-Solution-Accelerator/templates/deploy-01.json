@@ -95,7 +95,7 @@
           "autoUpgradeMinorVersion": true,
           "settings": {
             "fileUris": [
-              "" 
+              "https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/AI-Powered-Call-Center-Intelligence-Solution-Accelerator/scripts/psscript.ps1" 
             ],
             "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Unrestricted -File psscript.ps1', variables('Common'))]"
           }
