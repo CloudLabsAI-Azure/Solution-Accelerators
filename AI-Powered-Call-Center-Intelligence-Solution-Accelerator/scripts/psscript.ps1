@@ -249,8 +249,7 @@ InstallDotNetFW4.8
 
 #Download LogonTask
 $WebClient = New-Object System.Net.WebClient
-$WebClient.DownloadFile("logon.ps1","C:\LabFiles\logon.ps1")
-
+$WebClient.DownloadFile("https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/AI-Powered-Call-Center-Intelligence-Solution-Accelerator/scripts/logon.ps1","C:\LabFiles\logon.ps1")
 
 #Enable Auto-Logon
 $AutoLogonRegPath = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"
@@ -259,12 +258,28 @@ Set-ItemProperty -Path $AutoLogonRegPath -Name "DefaultUsername" -Value "$($env:
 Set-ItemProperty -Path $AutoLogonRegPath -Name "DefaultPassword" -Value "$vmPassword" -type String
 Set-ItemProperty -Path $AutoLogonRegPath -Name "AutoLogonCount" -Value "1" -type DWord
 
+#Check Deployment
+$status = (Get-AzResourceGroupDeployment -ResourceGroupName $rgName -Name "deploy-02").ProvisioningState
+$status
+if ($status -eq "Succeeded")
+{
+ 
+    $Validstatus="Pending"  ##Failed or Successful at the last step
+    $Validmessage="Main Deployment is successful, logontask is pending"
+
 # Scheduled Task
 $Trigger= New-ScheduledTaskTrigger -AtLogOn
 $User= "$($env:ComputerName)\$vmUsername"
 $Action= New-ScheduledTaskAction -Execute "C:\Windows\System32\WindowsPowerShell\v1.0\Powershell.exe" -Argument "-executionPolicy Unrestricted -File C:\LabFiles\logon.ps1"
 Register-ScheduledTask -TaskName "Setup" -Trigger $Trigger -User $User -Action $Action -RunLevel Highest -Force
 Set-ExecutionPolicy -ExecutionPolicy bypass -Force
+
+}
+else {
+    Write-Warning "Validation Failed - see log output"
+    $Validstatus="Failed"  ##Failed or Successful at the last step
+    $Validmessage="ARM template Deployment Failed"
+      }
 
 Stop-Transcript
 Restart-Computer -Force
