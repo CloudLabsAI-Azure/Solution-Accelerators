@@ -29,7 +29,7 @@ Start-Transcript -Path C:\WindowsAzure\Logs\CustomScriptExtension.txt -Append
 #Download git repository
 New-Item -ItemType directory -Path C:\LabFiles
 $WebClient = New-Object System.Net.WebClient
-$WebClient.DownloadFile("https://github.com/MSUSSolutionAccelerators/AI-Powered-Insurance-Claims-Automation-Solution-Accelerator/archive/refs/heads/main.zip"," C:\LabFiles\AutomationInsuranceClaim.zip")
+$WebClient.DownloadFile("https://github.com/kumud-sharma/AutomationInsuranceClaim/archive/refs/heads/main.zip"," C:\LabFiles\AutomationInsuranceClaim.zip")
 #unziping folder
 function Expand-ZIPFile($file, $destination)
 {
