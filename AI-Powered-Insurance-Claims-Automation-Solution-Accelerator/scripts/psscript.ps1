@@ -150,12 +150,7 @@ Function InstallAzPowerShellModule
 }
 InstallAzPowerShellModule
 
-#Import Common Functions
-$path = pwd
-$path=$path.Path
-$commonscriptpath = "$path" + "\cloudlabs-common\cloudlabs-windows-functions.ps1"
-. $commonscriptpath
-#Create Cred File
+
 Function CreateCredFile($AzureUserName, $AzurePassword, $AzureTenantID, $AzureSubscriptionID, $DeploymentID, $azuserobjectid, $adminPassword, $SPDisplayName, $SPApplicationID, $SPSecretKey, $SPObjectID)
 {
     $WebClient = New-Object System.Net.WebClient
