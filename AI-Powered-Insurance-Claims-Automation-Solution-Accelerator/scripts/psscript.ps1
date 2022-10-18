@@ -105,6 +105,13 @@ Function InstallEdgeChromium
     $argA = """https://portal.azure.com"""
     $Shortcut.Arguments = $argA 
     $Shortcut.Save()
+
+    #Disable Welcome page of Microsoft Edge:
+    Set-Location hklm:
+    Test-Path .\Software\Policies\Microsoft
+    New-Item -Path .\Software\Policies\Microsoft -Name MicrosoftEdge
+    New-Item -Path .\Software\Policies\Microsoft\MicrosoftEdge -Name Main
+    New-ItemProperty -Path .\Software\Policies\Microsoft\MicrosoftEdge\Main -Name PreventFirstRunPage -Value "1" -Type DWORD -Force -ErrorAction SilentlyContinue | Out-Null
 }
 
 
@@ -149,8 +156,8 @@ Import-Module -Name AzTable
 Function CreateCredFile($AzureUserName, $AzurePassword, $AzureTenantID, $AzureSubscriptionID, $DeploymentID, $adminPassword)
 {
     $WebClient = New-Object System.Net.WebClient
-    $WebClient.DownloadFile("https://raw.githubusercontent.com/kumud-sharma/newinsurance/main/script/AzureCreds.txt","C:\Packages\AzureCreds.txt")
-    $WebClient.DownloadFile("https://raw.githubusercontent.com/kumud-sharma/newinsurance/main/script/AzureCreds.ps1","C:\Packages\AzureCreds.ps1")
+    $WebClient.DownloadFile("https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/AI-Powered-Insurance-Claims-Automation-Solution-Accelerator/scripts/AzureCreds.txt","C:\Packages\AzureCreds.txt")
+    $WebClient.DownloadFile("https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/AI-Powered-Insurance-Claims-Automation-Solution-Accelerator/scripts/AzureCreds.ps1","C:\Packages\AzureCreds.ps1")
     
     New-Item -ItemType directory -Path C:\LabFiles -force
     
