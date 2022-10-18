@@ -26,22 +26,6 @@ Start-Transcript -Path C:\WindowsAzure\Logs\CustomScriptExtension.txt -Append
 [Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls
 [Net.ServicePointManager]::SecurityProtocol = "tls12, tls11, tls" 
 
-#Download git repository
-New-Item -ItemType directory -Path C:\LabFiles
-$WebClient = New-Object System.Net.WebClient
-$WebClient.DownloadFile("https://github.com/kumud-sharma/AutomationInsuranceClaim/archive/refs/heads/main.zip"," C:\LabFiles\AutomationInsuranceClaim.zip")
-#unziping folder
-function Expand-ZIPFile($file, $destination)
-{
-$shell = new-object -com shell.application
-$zip = $shell.NameSpace($file)
-foreach($item in $zip.items())
-{
-$shell.Namespace($destination).copyhere($item)
-}
-}
-Expand-ZIPFile -File "C:\LabFiles\AutomationInsuranceClaim.zip" -Destination "C:\Users\Public\Desktop"
-Rename-Item C:\Users\Public\Desktop\AutomationInsuranceclaim-main C:\Users\Public\Desktop\AutomationInsuranceClaim
 #Disable Enhanced Security for Internet Explorer
 Function Disable-InternetExplorerESC
 {
@@ -52,7 +36,6 @@ Function Disable-InternetExplorerESC
     #Stop-Process -Name Explorer -Force
     Write-Host "IE Enhanced Security Configuration (ESC) has been disabled." -ForegroundColor Green -Verbose
 }
-
 #Enable File Download on Windows Server Internet Explorer
 Function Enable-IEFileDownload
 {
@@ -63,7 +46,6 @@ Function Enable-IEFileDownload
     Set-ItemProperty -Path $HKLM -Name "1604" -Value 0 -ErrorAction SilentlyContinue -Verbose
     Set-ItemProperty -Path $HKCU -Name "1604" -Value 0 -ErrorAction SilentlyContinue -Verbose
 }
-
 #Enable Copy Page Content in IE
 Function Enable-CopyPageContent-In-InternetExplorer
 {
@@ -72,7 +54,6 @@ Function Enable-CopyPageContent-In-InternetExplorer
     Set-ItemProperty -Path $HKLM -Name "1407" -Value 0 -ErrorAction SilentlyContinue -Verbose
     Set-ItemProperty -Path $HKCU -Name "1407" -Value 0 -ErrorAction SilentlyContinue -Verbose
 }
-
 #Install Chocolatey
 Function InstallChocolatey
 {   
@@ -93,13 +74,21 @@ Function CreateLabFilesDirectory
 {
     New-Item -ItemType directory -Path C:\LabFiles -force
 }
-
 Function DisableWindowsFirewall
 {
     Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
 }
+Function InstallAzPowerShellModule
+{
+    <#Install-PackageProvider NuGet -Force
+    Set-PSRepository PSGallery -InstallationPolicy Trusted
+    Install-Module Az -Repository PSGallery -Force -AllowClobber#>
 
-
+    $WebClient = New-Object System.Net.WebClient
+    $WebClient.DownloadFile("https://github.com/Azure/azure-powershell/releases/download/v5.0.0-October2020/Az-Cmdlets-5.0.0.33612-x64.msi","C:\Packages\Az-Cmdlets-5.0.0.33612-x64.msi")
+    sleep 5
+    Start-Process msiexec.exe -Wait '/I C:\Packages\Az-Cmdlets-5.0.0.33612-x64.msi /qn' -Verbose 
+}
 Function InstallEdgeChromium
 {
     #Download and Install edge
@@ -115,6 +104,7 @@ Function InstallEdgeChromium
     $argA = """https://portal.azure.com"""
     $Shortcut.Arguments = $argA 
     $Shortcut.Save()
+}
 
     #Disable Welcome page of Microsoft Edge:
     Set-Location hklm:
@@ -122,6 +112,11 @@ Function InstallEdgeChromium
     New-Item -Path .\Software\Policies\Microsoft -Name MicrosoftEdge
     New-Item -Path .\Software\Policies\Microsoft\MicrosoftEdge -Name Main
     New-ItemProperty -Path .\Software\Policies\Microsoft\MicrosoftEdge\Main -Name PreventFirstRunPage -Value "1" -Type DWORD -Force -ErrorAction SilentlyContinue | Out-Null
+}
+
+Function InstallAzCLI
+{
+    choco install azure-cli -y -force
 }
 Function WindowsServerCommon
 {
@@ -134,28 +129,31 @@ InstallChocolatey
 DisableServerMgrNetworkPopup
 CreateLabFilesDirectory
 DisableWindowsFirewall
+InstallAzCLI
 InstallEdgeChromium
 }
-Function InstallAzPowerShellModule
-{
-    <#Install-PackageProvider NuGet -Force
-    Set-PSRepository PSGallery -InstallationPolicy Trusted
-    Install-Module Az -Repository PSGallery -Force -AllowClobber#>
-
-    $WebClient = New-Object System.Net.WebClient
-    $WebClient.DownloadFile("https://github.com/Azure/azure-powershell/releases/download/v5.0.0-October2020/Az-Cmdlets-5.0.0.33612-x64.msi","C:\Packages\Az-Cmdlets-5.0.0.33612-x64.msi")
-    sleep 5
-    Start-Process msiexec.exe -Wait '/I C:\Packages\Az-Cmdlets-5.0.0.33612-x64.msi /qn' -Verbose 
-
-}
+# Run declared functions from psscript.ps1
+WindowsServerCommon
 InstallAzPowerShellModule
+Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
+Set-PSRepository -Name "PSGallery" -Installationpolicy Trusted
+Install-Module -Name Az -AllowClobber -Scope AllUsers -Force
+Install-Module -Name Az.Search -AllowClobber -Scope AllUsers
+Install-Module -Name Az.BotService -Force
+Install-Module AzureAD -Force
+Install-Module -Name AzTable -Force
+Import-Module Az
+Import-Module -Name Az
+Import-Module -Name Az.Search
+Import-Module AzureAD
+Import-Module -Name AzTable
 
-
-Function CreateCredFile($AzureUserName, $AzurePassword, $AzureTenantID, $AzureSubscriptionID, $DeploymentID, $azuserobjectid, $adminPassword, $SPDisplayName, $SPApplicationID, $SPSecretKey, $SPObjectID)
+#Create Cred File
+Function CreateCredFile($AzureUserName, $AzurePassword, $AzureTenantID, $AzureSubscriptionID, $DeploymentID, $adminPassword)
 {
     $WebClient = New-Object System.Net.WebClient
-    $WebClient.DownloadFile("https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/AI-Powered-Insurance-Claims-Automation-Solution-Accelerator/scripts/AzureCreds.txt","C:\Packages\AzureCreds.txt")
-    $WebClient.DownloadFile("https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/AI-Powered-Insurance-Claims-Automation-Solution-Accelerator/scripts/AzureCreds.ps1","C:\Packages\AzureCreds.ps1")
+    $WebClient.DownloadFile("https://raw.githubusercontent.com/kumud-sharma/newinsurance/main/script/AzureCreds.txt","C:\Packages\AzureCreds.txt")
+    $WebClient.DownloadFile("https://raw.githubusercontent.com/kumud-sharma/newinsurance/main/script/AzureCreds.ps1","C:\Packages\AzureCreds.ps1")
     
     New-Item -ItemType directory -Path C:\LabFiles -force
     
@@ -164,56 +162,48 @@ Function CreateCredFile($AzureUserName, $AzurePassword, $AzureTenantID, $AzureSu
     (Get-Content -Path "C:\Packages\AzureCreds.txt") | ForEach-Object {$_ -Replace "AzureTenantIDValue", "$AzureTenantID"} | Set-Content -Path "C:\Packages\AzureCreds.txt"
     (Get-Content -Path "C:\Packages\AzureCreds.txt") | ForEach-Object {$_ -Replace "AzureSubscriptionIDValue", "$AzureSubscriptionID"} | Set-Content -Path "C:\Packages\AzureCreds.txt"
     (Get-Content -Path "C:\Packages\AzureCreds.txt") | ForEach-Object {$_ -Replace "DeploymentIDValue", "$DeploymentID"} | Set-Content -Path "C:\Packages\AzureCreds.txt"
-    (Get-Content -Path "C:\Packages\AzureCreds.txt") | ForEach-Object {$_ -Replace "AdminUsernameValue", "$adminUsername"} | Set-Content -Path "C:\Packages\AzureCreds.txt"
     (Get-Content -Path "C:\Packages\AzureCreds.txt") | ForEach-Object {$_ -Replace "AdminPasswordValue", "$adminPassword"} | Set-Content -Path "C:\Packages\AzureCreds.txt"
-       
+
+         
     (Get-Content -Path "C:\Packages\AzureCreds.ps1") | ForEach-Object {$_ -Replace "AzureUserNameValue", "$AzureUserName"} | Set-Content -Path "C:\Packages\AzureCreds.ps1"
     (Get-Content -Path "C:\Packages\AzureCreds.ps1") | ForEach-Object {$_ -Replace "AzurePasswordValue", "$AzurePassword"} | Set-Content -Path "C:\Packages\AzureCreds.ps1"
     (Get-Content -Path "C:\Packages\AzureCreds.ps1") | ForEach-Object {$_ -Replace "AzureTenantIDValue", "$AzureTenantID"} | Set-Content -Path "C:\Packages\AzureCreds.ps1"
     (Get-Content -Path "C:\Packages\AzureCreds.ps1") | ForEach-Object {$_ -Replace "AzureSubscriptionIDValue", "$AzureSubscriptionID"} | Set-Content -Path "C:\Packages\AzureCreds.ps1"
     (Get-Content -Path "C:\Packages\AzureCreds.ps1") | ForEach-Object {$_ -Replace "DeploymentIDValue", "$DeploymentID"} | Set-Content -Path "C:\Packages\AzureCreds.ps1"
-    (Get-Content -Path "C:\Packages\AzureCreds.ps1") | ForEach-Object {$_ -Replace "AdminUsernameValue", "$adminUsername"} | Set-Content -Path "C:\Packages\AzureCreds.ps1"
     (Get-Content -Path "C:\Packages\AzureCreds.ps1") | ForEach-Object {$_ -Replace "AdminPasswordValue", "$adminPassword"} | Set-Content -Path "C:\Packages\AzureCreds.ps1"
-  
+
+
     Copy-Item "C:\Packages\AzureCreds.txt" -Destination "C:\Users\Public\Desktop"
 }
 
-#Import creds
-
-. C:\LabFiles\AzureCreds.ps1
-
+CreateCredFile $AzureUserName $AzurePassword $AzureTenantID $AzureSubscriptionID $DeploymentID $adminPassword 
+. C:\Packages\AzureCreds.ps1
 
 $userName = $AzureUserName
 $password = $AzurePassword
-$vmUsername = $adminUsername
-$vmPassword = $adminPassword
-$deployID = $DeploymentID
+$SubscriptionId = $AzureSubscriptionID
+$vmPassword = $AdminPassword
+        
 $securePassword = $password | ConvertTo-SecureString -AsPlainText -Force
 $cred = new-object -typename System.Management.Automation.PSCredential -argumentlist $userName, $SecurePassword
-$userName, $SecurePassword
 
 Connect-AzAccount -Credential $cred | Out-Null
-Function InstallAzCLI
+
+#Download git repository
+New-Item -ItemType directory -Path C:\LabFiles
+$WebClient = New-Object System.Net.WebClient
+$WebClient.DownloadFile("https://github.com/kumud-sharma/AutomationInsuranceClaim/archive/refs/heads/main.zip"," C:\LabFiles\AutomationInsuranceClaim.zip")
+#unziping folder
+function Expand-ZIPFile($file, $destination)
 {
-    choco install azure-cli -y -force
+$shell = new-object -com shell.application
+$zip = $shell.NameSpace($file)
+foreach($item in $zip.items())
+{
+$shell.Namespace($destination).copyhere($item)
 }
-sleep 5
-Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
-Set-PSRepository -Name "PSGallery" -Installationpolicy Trusted
-Install-Module -Name Az -AllowClobber -Scope AllUsers -Force
-Install-Module -Name Az.Search -AllowClobber -Scope AllUsers
-Install-Module -Name Az.BotService -Force
-Install-Module AzureAD -Force
-Install-Module -Name AzTable -Force
-InstallAzCLI
-Import-Module Az
-Import-Module -Name Az
-Import-Module -Name Az.Search
-Import-Module AzureAD
-Import-Module -Name AzTable
-InstallEdgeChromium
-
-
-
+}
+Expand-ZIPFile -File "C:\LabFiles\AutomationInsuranceClaim.zip" -Destination "C:\Users\Public\Desktop"
+Rename-Item C:\Users\Public\Desktop\AutomationInsuranceclaim-main C:\Users\Public\Desktop\AutomationInsuranceClaim
 
 
