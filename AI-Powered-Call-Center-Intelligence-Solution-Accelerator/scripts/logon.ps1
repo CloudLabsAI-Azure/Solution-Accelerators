@@ -39,8 +39,8 @@ Remove-Item -Path C:\Users\demouser\Program.cs
 $WebClient = New-Object System.Net.WebClient
 $WebClient.DownloadFile("https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/AI-Powered-Call-Center-Intelligence-Solution-Accelerator/scripts/Program1.cs","C:\Users\demouser\Program1.cs")
 
-(Get-Content -Path "C:\Users\demouser\Program1.cs") | ForEach-Object {$_ -Replace "<speechkey>", "$key1"} | Set-Content -Path "C:\Users\demouser\Program1.cs"
-(Get-Content -Path "C:\Users\demouser\Program1.cs") | ForEach-Object {$_ -Replace "<azregion>", "$rgloc"} | Set-Content -Path "C:\Users\demouser\Program1.cs"
+(Get-Content -Path "C:\Users\demouser\Program1.cs") | ForEach-Object {$_ -Replace "<speechkey>", "$key1"} | Set-Content -Path "C:\Users\$vmUsername\Program1.cs"
+(Get-Content -Path "C:\Users\demouser\Program1.cs") | ForEach-Object {$_ -Replace "<azregion>", "$rgloc"} | Set-Content -Path "C:\Users\$vmUsername\Program1.cs"
 (Get-Content -Path "C:\LabFiles\deploy-03.parameters.json") | ForEach-Object {$_ -Replace "azregion", "$rgloc"} | Set-Content -Path "C:\LabFiles\deploy-03.parameters.json"
 (Get-Content -Path "C:\LabFiles\deploy-03.parameters.json") | ForEach-Object {$_ -Replace "enter_deploymentid", "$deployId"} | Set-Content -Path "C:\LabFiles\deploy-03.parameters.json"
 (Get-Content -Path "C:\LabFiles\deploy-03.parameters.json") | ForEach-Object {$_ -Replace "speechkey", "$key1"} | Set-Content -Path "C:\LabFiles\deploy-03.parameters.json"
