@@ -3,7 +3,8 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "DeploymentID": {
-      "type": "string"
+      "type": "string",
+      "defaultValue": "enter_deploymentid"
     }
   },
   "variables": {
