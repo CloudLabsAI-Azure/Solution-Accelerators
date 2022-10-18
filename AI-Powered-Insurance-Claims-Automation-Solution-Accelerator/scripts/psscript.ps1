@@ -112,6 +112,7 @@ Function InstallAzCLI
 {
     choco install azure-cli -y -force
 }
+
 Function WindowsServerCommon
 {
 [Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls
@@ -125,6 +126,7 @@ CreateLabFilesDirectory
 DisableWindowsFirewall
 InstallEdgeChromium
 }
+
 
 # Run declared functions from psscript.ps1
 WindowsServerCommon
