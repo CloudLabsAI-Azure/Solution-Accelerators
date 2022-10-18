@@ -29,7 +29,7 @@ Start-Transcript -Path C:\WindowsAzure\Logs\CustomScriptExtension.txt -Append
 #Download git repository
 New-Item -ItemType directory -Path C:\AllFiles
 $WebClient = New-Object System.Net.WebClient
-$WebClient.DownloadFile("https://codeload.github.com/MSUSSolutionAccelerators/AI-Powered-Call-Center-Intelligence-Solution-Accelerator/zip/refs/heads/main","C:\AllFiles\AllFiles.zip")
+$WebClient.DownloadFile("https://codeload.github.com/MSUSSolutionAccelerators/AI-Powered-Call-Center-Intelligence-Solution-Accelerator/zip/refs/heads/main","C:\AllFiles\AI-Call-Center.zip")
 
 #unziping folder
 function Expand-ZIPFile($file, $destination)
@@ -41,7 +41,7 @@ foreach($item in $zip.items())
 $shell.Namespace($destination).copyhere($item)
 }
 }
-Expand-ZIPFile -File "C:\AllFiles\AllFiles.zip" -Destination "C:\AllFiles\"
+Expand-ZIPFile -File "C:\AllFiles\AI-Call-Center.zip" -Destination "C:\AllFiles\"
 
 #Disable Enhanced Security for Internet Explorer
 Function Disable-InternetExplorerESC
@@ -218,7 +218,16 @@ Connect-AzAccount -Credential $cred | Out-Null
 
 #deploy armtemplate
 Import-Module Az
-New-AzResourceGroupDeployment -ResourceGroupName "many-models-$DeploymentID" -TemplateUri  deploy-02.json -DeploymentID $deployID 
+$WebClient = New-Object System.Net.WebClient
+$WebClient.DownloadFile("https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/AI-Powered-Call-Center-Intelligence-Solution-Accelerator/templates/deploy-02.json","C:\LabFiles\deploy-02.json")
+$WebClient.DownloadFile("https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/AI-Powered-Call-Center-Intelligence-Solution-Accelerator/templates/deploy-02.parameters.json","C:\LabFiles\deploy-02.parameters.json")
+
+(Get-Content -Path "C:\LabFiles\deploy-02.json") | ForEach-Object {$_ -Replace "enter_deploymentid", "$deployID"} | Set-Content -Path "C:\LabFiles\deploy-02.json"
+(Get-Content -Path "C:\LabFiles\deploy-02.parameters.json") | ForEach-Object {$_ -Replace "enter_deploymentid", "$deployID"} | Set-Content -Path "C:\LabFiles\deploy-02.parameters.json"
+
+New-AzResourceGroupDeployment -ResourceGroupName "many-models-$DeploymentID" -TemplateUri  "C:\LabFiles\deploy-02.json" -TemplateParameterUri "C:\LabFiles\deploy-02.parameters.json" 
+
+sleep 300
 
 choco install dotnetcore-sdk
 
