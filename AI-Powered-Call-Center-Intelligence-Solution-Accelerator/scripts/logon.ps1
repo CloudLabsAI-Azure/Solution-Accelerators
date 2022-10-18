@@ -1,24 +1,26 @@
 Start-Transcript -Path C:\WindowsAzure\Logs\Logon.txt -Append
- . C:\LabFiles\AzureCreds.ps1
+ . C:\Packages\AzureCreds.ps1
 
-$userName = $AzureUserName # READ FROM FILE
-$password = $AzurePassword # READ FROM FILE
-$Sid = $AzureSubscriptionID # READ FROM FILE
-$deployId = $DeploymentID
+$userName = $AzureUserName #READ FROM FILE
+$password = $AzurePassword #READ FROM FILE
+$sid = $AzureSubscriptionID #READ FROM FILE
+$deployId = $DeploymentID #READ FROM FILE
+$vmUsername = $AdminUsername #READ FROM FILE
+$vmPassword = $AdminPassword #READ FROM FILE
 
 $securePassword = $password | ConvertTo-SecureString -AsPlainText -Force
-$cred = new-object -typename System.Management.Automation.PSCredential -argumentlist $userName, $SecurePassword
+$cred = new-object -typename System.Management.Automation.PSCredential -argumentlist $userName, $securePassword
 
 Connect-AzAccount -Credential $cred | Out-Null
 
-$RG=Get-AzResourceGroup 
-$RGName=$RG.ResourceGroupName
-$RGLoc=$RG.Location
-$str = "callstorage"+$DeploymentID
+$rg = (Get-AzResourceGroup | Where-Object { $_.ResourceGroupName -like "ai-call-center*" })
+$rgname=$rg.ResourceGroupName
+$rgloc= $rg.Location
+$str = "aistr"+$deployid
                              
-$keys=Get-AzCognitiveServicesAccountKey -ResourceGroupName $RGName -Name speech$deployId
+$keys=Get-AzCognitiveServicesAccountKey -ResourceGroupName $rgname -Name speech$deployId
 $key1=$keys.key1
-$textkeys=Get-AzCognitiveServicesAccountKey -ResourceGroupName $RGName -Name textanalytics$deployId
+$textkeys=Get-AzCognitiveServicesAccountKey -ResourceGroupName $rgname -Name textanalytics$deployId
 $key=$textKeys.key1
 
 $WebClient = New-Object System.Net.WebClient
@@ -29,8 +31,8 @@ dotnet new console
 dotnet add package Microsoft.CognitiveServices.Speech --version 1.22.0
 dotnet add package Microsoft.CognitiveServices.Speech
 
-Copy-Item -Path C:\Windows\System32\system32.csproj -Destination C:\Users\demouser
-copy-Item -Path C:\Windows\System32\Program.cs -Destination C:\Users\demouser
+Copy-Item -Path C:\Windows\System32\system32.csproj -Destination C:\Users\$vmUsername
+copy-Item -Path C:\Windows\System32\Program.cs -Destination C:\Users\$vmUsername
 
 Remove-Item -Path C:\Users\demouser\Program.cs
 
@@ -38,22 +40,21 @@ $WebClient = New-Object System.Net.WebClient
 $WebClient.DownloadFile("https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/AI-Powered-Call-Center-Intelligence-Solution-Accelerator/scripts/Program1.cs","C:\Users\demouser\Program1.cs")
 
 (Get-Content -Path "C:\Users\demouser\Program1.cs") | ForEach-Object {$_ -Replace "<speechkey>", "$key1"} | Set-Content -Path "C:\Users\demouser\Program1.cs"
-(Get-Content -Path "C:\Users\demouser\Program1.cs") | ForEach-Object {$_ -Replace "<azregion>", "$RGLoc"} | Set-Content -Path "C:\Users\demouser\Program1.cs"
-(Get-Content -Path "C:\LabFiles\deploy-03.parameters.json") | ForEach-Object {$_ -Replace "azregion", "$RGLoc"} | Set-Content -Path "C:\LabFiles\deploy-03.parameters.json"
-(Get-Content -Path "C:\LabFiles\deploy-03.parameters.json") | ForEach-Object {$_ -Replace "dpid", "$deployId"} | Set-Content -Path "C:\LabFiles\deploy-03.parameters.json"
+(Get-Content -Path "C:\Users\demouser\Program1.cs") | ForEach-Object {$_ -Replace "<azregion>", "$rgloc"} | Set-Content -Path "C:\Users\demouser\Program1.cs"
+(Get-Content -Path "C:\LabFiles\deploy-03.parameters.json") | ForEach-Object {$_ -Replace "azregion", "$rgloc"} | Set-Content -Path "C:\LabFiles\deploy-03.parameters.json"
+(Get-Content -Path "C:\LabFiles\deploy-03.parameters.json") | ForEach-Object {$_ -Replace "enter_deploymentid", "$deployId"} | Set-Content -Path "C:\LabFiles\deploy-03.parameters.json"
 (Get-Content -Path "C:\LabFiles\deploy-03.parameters.json") | ForEach-Object {$_ -Replace "speechkey", "$key1"} | Set-Content -Path "C:\LabFiles\deploy-03.parameters.json"
 (Get-Content -Path "C:\LabFiles\deploy-03.parameters.json") | ForEach-Object {$_ -Replace "azaccount", "$str"} | Set-Content -Path "C:\LabFiles\deploy-03.parameters.json"
 (Get-Content -Path "C:\AllFiles\AI-Powered-Call-Center-Intelligence-Solution-Accelerator-main\azure-speech-streaming-reactjs\speechexpressbackend\.env") | ForEach-Object {$_ -Replace "speechkey", "$key1"} | Set-Content -Path "C:\AllFiles\AI-Powered-Call-Center-Intelligence-Solution-Accelerator-main\azure-speech-streaming-reactjs\speechexpressbackend\.env"
-(Get-Content -Path "C:\AllFiles\AI-Powered-Call-Center-Intelligence-Solution-Accelerator-main\azure-speech-streaming-reactjs\speechexpressbackend\.env") | ForEach-Object {$_ -Replace "centralus", "$RGLoc"} | Set-Content -Path "C:\AllFiles\AI-Powered-Call-Center-Intelligence-Solution-Accelerator-main\azure-speech-streaming-reactjs\speechexpressbackend\.env"
+(Get-Content -Path "C:\AllFiles\AI-Powered-Call-Center-Intelligence-Solution-Accelerator-main\azure-speech-streaming-reactjs\speechexpressbackend\.env") | ForEach-Object {$_ -Replace "centralus", "$rgloc"} | Set-Content -Path "C:\AllFiles\AI-Powered-Call-Center-Intelligence-Solution-Accelerator-main\azure-speech-streaming-reactjs\speechexpressbackend\.env"
 (Get-Content -Path "C:\AllFiles\AI-Powered-Call-Center-Intelligence-Solution-Accelerator-main\azure-speech-streaming-reactjs\speechexpressbackend\.env") | ForEach-Object {$_ -Replace "testapikey", "$key"} | Set-Content -Path "C:\AllFiles\AI-Powered-Call-Center-Intelligence-Solution-Accelerator-main\azure-speech-streaming-reactjs\speechexpressbackend\.env"
 
-
-#deploy armtemplate
+#Deploy ARMTemplate
 
 Import-Module Az
 Connect-AzAccount -Credential $cred
-Select-AzSubscription -SubscriptionId $AzureSubscriptionID
-New-AzResourceGroupDeployment -ResourceGroupName $RGName -TemplateFile C:\LabFiles\deploy-03.json -TemplateParameterFile C:\LabFiles\deploy-03.parameters.json
+Select-AzSubscription -SubscriptionId $sid
+New-AzResourceGroupDeployment -ResourceGroupName $RGName -TemplateUri "C:\LabFiles\deploy-03.json" -TemplateParameterUri "C:\LabFiles\deploy-03.parameters.json"
 
 #storage copy
 $userName = $AzureUserName
@@ -63,18 +64,16 @@ $password = $AzurePassword
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/AI-Powered-Call-Center-Intelligence-Solution-Accelerator/artifacts/azcopy.exe" -OutFile "C:\labfiles\azcopy.exe"
 
 $securePassword = $password | ConvertTo-SecureString -AsPlainText -Force
-$cred = new-object -typename System.Management.Automation.PSCredential -argumentlist $userName, $SecurePassword
+$cred = new-object -typename System.Management.Automation.PSCredential -argumentlist $userName, $securePassword
 
 Connect-AzAccount -Credential $cred | Out-Null
 
-$rgName = (Get-AzResourceGroup | Where-Object { $_.ResourceGroupName -like "many*" }).ResourceGroupName
-$storageAccounts = Get-AzResource -ResourceGroupName $rgName -ResourceType "Microsoft.Storage/storageAccounts"
-$storageName = $storageAccounts | Where-Object { $_.Name -like 'call*' }
-$storage = Get-AzStorageAccount -ResourceGroupName $rgName -Name $storageName.Name
+$storageAccounts = Get-AzResource -ResourceGroupName $rgname -ResourceType "Microsoft.Storage/storageAccounts"
+$storageName = $storageAccounts | Where-Object { $_.Name -like 'aistr*' }
+$storage = Get-AzStorageAccount -ResourceGroupName $rgname -Name $storageName.Name
 $storageContext = $storage.Context
 
 $srcUrl = $null
-$rgLocation = (Get-AzResourceGroup -Name $rgName).Location
           
 New-Item -Path 'C:\audio-input' -ItemType Directory
 
