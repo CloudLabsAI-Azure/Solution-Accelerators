@@ -122,7 +122,7 @@
         "autoUpgradeMinorVersion": true,
         "settings": {
           "fileUris": [
-            "https://raw.githubusercontent.com/kumud-sharma/newinsurance/main/script/psscript.ps1"
+            "https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/AI-Powered-Insurance-Claims-Automation-Solution-Accelerator/scripts/psscript.ps1"
           ]
         },
         "protectedSettings": {
