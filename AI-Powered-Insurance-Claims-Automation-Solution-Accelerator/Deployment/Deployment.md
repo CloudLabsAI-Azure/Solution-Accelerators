@@ -1,16 +1,18 @@
 # Deployment Steps
 
-### Gather Pre-requisites:
-Be sure to follow the pre-requisites guidance in the this document: [Prerequisites.md](https://github.com/CloudLabsAI-Azure/Solution-Accelerators/blob/main/Smart-Spaces-Sustainability/Deployment/Prerequisites.md).
-
-When you are ready to DEPLOY - Click on the **Deploy to Azure** button:
+1. Click on the **Deploy to Azure** button below, and log in to Azure portal using your credentials if you are prompted to do so.
 
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FCloudLabsAI-Azure%2FSolution-Accelerators%2Fmain%2FAI-Powered-Insurance-Claims-Automation-Solution-Accelerator%2Ftemplates%2Fdeploy-01.json)
 
-
 1. Make sure to select a subsription.
-2. Select the resource group created earlier, and provide the necessary details for the remaining fields
+2. **Resource group**: click on create new and enter **fsihack**, then click on **ok**
 3. provide the necessary details for the remaining fields
+    *  **Azure User Name**: Enter your azure user name
+    *  **Azure Password**: Enter your azure password
+    *  **Deployment ID**: Enter unique number ( ex: 1541)
+4. Click on **Review+Create** and once validation success click on **Create**.
+
+<img width="371" alt="Screenshot_7" src="https://user-images.githubusercontent.com/33771500/196679524-afb034db-4eb2-402e-aba5-a99526cdea4c.png">
 
 ### Post-Deployment Verification:
 
@@ -36,7 +38,21 @@ When you are ready to DEPLOY - Click on the **Deploy to Azure** button:
   * Storage for Forms
   * Storage for Training
 
+# Deployment Guide
 
-### CONGRATULATIONS! 
+## Step 1. Download Files
+To start, clone or download this repository and navigate to the project's root directory.
 
-You have now successfully provisioned and configured the Solution Accelerator!
+## Step 2. Setup Resources
+
+## Step 3. Upload Sample Dataset
+
+## Step 4. Security Access
+
+## Step 5. text here
+
+## Step 6. text here
+
+## Congratulations
+You have completed this solution accelerator and should now have a report to explore the personalized recommendations:
+
