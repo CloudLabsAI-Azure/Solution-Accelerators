@@ -8,7 +8,7 @@
 2. **Resource group**: click on create new and enter **fsihack**, then click on **ok**
 3. provide the necessary details for the remaining fields   
      *  **Admin User Name**: demouser
-     *  **Admin User Password** Provide a secure password
+     *  **Admin User Password**: Provide a secure password
     *  **Azure User Name**: Enter your azure user name
     *  **Azure Password**: Enter your azure password
     *  **Deployment ID**: Enter unique number ( ex: 1541)
