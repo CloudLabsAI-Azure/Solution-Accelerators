@@ -1,4 +1,4 @@
-CD C:\LabFiles
+CD C:\Packages
 $credsfilepath = ".\AzureCreds.txt"
 $creds = Get-Content $credsfilepath | Out-String | ConvertFrom-StringData
 $AzureUserName = "$($creds.AzureUserName)"
@@ -8,13 +8,12 @@ $AzureSubscriptionID = "$($creds.AzureSubscriptionID)"
 $passwd = ConvertTo-SecureString $AzurePassword -AsPlainText -Force
 $cred = new-object -typename System.Management.Automation.PSCredential -argumentlist $AzureUserName, $passwd
 $subscriptionId = $AzureSubscriptionID 
-Connect-AzAccount -Credential $cred | Out-Null
+Connect-AzAccount -Credential $cred | Out-Null 
 $resourceGroupName= (Get-AzResourceGroup | Where-Object { $_.ResourceGroupName -like "fsihack*" }).ResourceGroupName
 $loc= Get-AzResourceGroup -Name $resourceGroupName
 $location= $loc.location
-#Write-Host $location
 $uniqueName= "fsihack"+$DeploymentID
-CD C:\Users\Public\Desktop\deploy
+CD C:\Users\Public\Desktop\AutomationInsuranceClaim
 #----------------------------------------------------------------#
 #   Parameters                                                   #
 #----------------------------------------------------------------#
@@ -78,7 +77,7 @@ $uniqueName = $uniqueName.ToLower();
 
 # prefixes
 $prefix = $uniqueName
-$ScriptRoot = "C:\Users\Public\Desktop\deploy"
+$ScriptRoot = "C:\Users\Public\Desktop\AutomationInsuranceClaim"
 $outArray = New-Object System.Collections.ArrayList($null)
 
 if ($ScriptRoot -eq "" -or $null -eq $ScriptRoot ) {
@@ -88,18 +87,8 @@ $outArray.Add("v_prefix=$prefix")
 $outArray.Add("v_resourceGroupName=$resourceGroupName")
 $outArray.Add("v_location=$location")
 
-Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
-Set-PSRepository -Name "PSGallery" -Installationpolicy Trusted
-Install-Module Az.Search -Force
-Install-Module -Name Az.BotService -Force
-Install-Module AzureAD -Force
-Import-Module AzureAD
-Import-Module Az.Search
-Install-Module -Name MSOnline
-Update-Module -Name Az.Search
 
 $ErrorActionPreference = "Stop"
-#Install-Module AzTable -Force
 
 # Sign In
 Write-Host Logging in... -ForegroundColor Green
@@ -248,7 +237,8 @@ New-AzCognitiveServicesAccount `
 		-Name $formRecognizerName `
 		-Type FormRecognizer `
 		-SkuName S0 `
-		-Location $location
+		-Location $location 
+		
 Start-Sleep -s 10
 # Get Key and Endpoint
 $formRecognizerEndpoint =  (Get-AzCognitiveServicesAccount -ResourceGroupName $resourceGroupName -Name $formRecognizerName).Endpoint		
@@ -636,7 +626,7 @@ foreach($file in $files){
 }
 Start-Sleep -s 10
 
-CD C:\Users\Public\Desktop\deploy
+CD C:\Users\Public\Desktop\AutomationInsuranceClaim
 
 #----------------------------------------------------------------#
 #   Step 9 - Create API Connection and Deploy Logic app		 #
@@ -828,23 +818,19 @@ try {
 	}
 catch {
 	}
-
+Start-Sleep -s 10
+Connect-AzureAD -Credential $cred | Out-Null
 $appDisplayName = $prefix + "appId"
-#a16e0d41-1743-4d9f-9c12-ae34ee7d6281
-#cvJ7Q~o-46FnJynOdqiTDWzaf8WchbO-nERb_
-#tiiogcmu30xqmo0a4yp8r2cqdzs5r4vj051ys4ed
-# curl -k -X POST https://login.microsoftonline.com/botframework.com/oauth2/v2.0/token -d "grant_type=client_credentials&client_id=a16e0d41-1743-4d9f-9c12-ae34ee7d6281&client_secret=cvJ7Q~o-46FnJynOdqiTDWzaf8WchbO-nERb_&scope=https%3A%2F%2Fapi.botframework.com%2F.default"
-
-#$newApp = az ad app create --display-name $appDisplayName --available-to-other-tenants $true
-#$newAppJson = $newApp | ConvertFrom-Json
-#$appId = $newAppJson.appId
-#$startDate = Get-Date
-#$endDate = $startDate.AddYears(1)
-#$appPassword = az ad app credential reset --id $appId | ConvertFrom-Json
-#$clientPassword = $appPassword.password
+#$orgs = "AzureADMultipleOrgs"
+$aadApplication = New-AzureADApplication -DisplayName $appDisplayName
+$appObjectId=$aadApplication.ObjectId
+$appId=$aadApplication.AppId
+$startDate = Get-Date
+$endDate = $startDate.AddYears(1)
+$appPassword = New-AzureADApplicationPasswordCredential -ObjectId $appObjectId -CustomKeyIdentifier "AppAccessKey"
+$clientPassword = $appPassword.password
 $botName = $prefix + "bot"
 $endPointName = "https://" + $botWebApiName + "azurewebsites.net/api/messages" 
-
 $botTemplateFilePath = "$ScriptRoot\templates\azurebot-template.json"
 $botParametersFilePath = "$ScriptRoot\templates\azurebot-parameters.json"
 $botParametersTemplate = Get-Content $botParametersFilePath | ConvertFrom-Json
@@ -864,10 +850,8 @@ try {
 }
 catch {
 }
-
 #New-AzBotService -ResourceGroupName  $resourceGroupName -Name $botName -ApplicationId $appId -Location $location -Sku S1 -Description "Fsi Hack Bot" -Endpoint $endPointName -Registration
 
 
 Write-Host Deployment complete. -ForegroundColor Green `n
-
 
