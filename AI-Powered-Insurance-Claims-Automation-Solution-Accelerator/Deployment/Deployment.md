@@ -1,8 +1,6 @@
 # Deployment Steps
 
 ### Gather Pre-requisites:
-
-### Gather Pre-requisites:
 Be sure to follow the pre-requisites guidance in the this document: [Prerequisites.md](https://github.com/CloudLabsAI-Azure/Solution-Accelerators/blob/main/Smart-Spaces-Sustainability/Deployment/Prerequisites.md).
 
 When you are ready to DEPLOY - Click on the **Deploy to Azure** button:
