@@ -14,7 +14,27 @@ When you are ready to DEPLOY - Click on the **Deploy to Azure** button:
 
 ### Post-Deployment Verification:
 
-
+## List of Artifacts Deployed
+* API Connection
+  * Azure Blob
+* App Services
+  * Blob operations
+  * CosmosDb
+  * Form Recognizer
+  * Luis
+  * Web API & Web App(UI)
+* App Service Plan
+* Application Insight
+* Cognitive Services
+  * All-in-one Cognitive Services
+  * Custom Vision Training & Prediction
+  * Form Recognizer
+  * Luis Authoring
+* Logic Apps
+* Azure Search
+* Storage Account
+  * Storage for Forms
+  * Storage for Training
 
 
 ### CONGRATULATIONS! 
