@@ -216,7 +216,7 @@ Connect-AzAccount -Credential $cred | Out-Null
 
 #Download lab files
 $WebClient = New-Object System.Net.WebClient
-$WebClient.DownloadFile("https://github.com/CloudLabsAI-Azure/Solution-Accelerators.git","C:\Patient-Risk-Analyzer.zip")
+$WebClient.DownloadFile("https://codeload.github.com/CloudLabsAI-Azure/Solution-Accelerators/zip/refs/heads/main","C:\Patient-Risk-Analyzer.zip")
 
 #unziping folder
 function Expand-ZIPFile($file, $destination)
