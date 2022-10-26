@@ -191,7 +191,7 @@ Import-Module Az
 Connect-AzAccount -Credential $cred
 Select-AzSubscription -SubscriptionId $AzureSubscriptionID
 
-< #
+<#
 $params = @{
    UniquePrefixName = "$DeploymentID"
 }
@@ -351,3 +351,4 @@ Set-ExecutionPolicy -ExecutionPolicy bypass -Force
 
 Stop-Transcript
 Restart-Computer -Force 
+#>
