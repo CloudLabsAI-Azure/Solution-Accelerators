@@ -186,12 +186,12 @@ $cred = new-object -typename System.Management.Automation.PSCredential -argument
 
 
 #deploy armtemplate
-
 $parm = "syn"+$DeploymentID
 Import-Module Az
 Connect-AzAccount -Credential $cred
 Select-AzSubscription -SubscriptionId $AzureSubscriptionID
 
+< #
 $params = @{
    UniquePrefixName = "$DeploymentID"
 }
@@ -280,10 +280,11 @@ Start-Process C:\LabFiles\PowerShell-7.2.6-win-x64.msi -ArgumentList "/quiet"
 $machinelearningAccount = Get-AzResource -ResourceGroupName $rgName -ResourceType "Microsoft.MachineLearningServices/workspaces"
 $machinelearningName = $machinelearningAccount | Where-Object { $_.Name -like 'ml*' }
 $machinelearningaccname = $machinelearningName.Name
+#>
 
 #Download LogonTask
 $WebClient = New-Object System.Net.WebClient
-$WebClient.DownloadFile("https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/Patient-Risk-Analyzer/scripts/logontask.ps1","C:\LabFiles\logon.ps1")
+$WebClient.DownloadFile("https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/Patient-Risk-Analyzer/scripts/logontask1.ps1","C:\LabFiles\logon.ps1")
 
 #download psm1 file
 $WebClient.DownloadFile("https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/Patient-Risk-Analyzer/scripts/validation.ps1","C:\LabFiles\validate.ps1")
@@ -314,6 +315,7 @@ Expand-ZIPFile -File "C:\patientrisk.zip" -Destination "C:\LabFiles"
 
 Copy-Item -Path C:\LabFiles\solutionaccelarator\* -Destination C:\LabFiles -Force
 
+<#
 #first notebook
 (Get-Content -Path "C:\LabFiles\00_preparedata.ipynb") | ForEach-Object {$_ -Replace "data_lake_account_name = ''", "data_lake_account_name = '$storageaccname'"} | Set-Content -Path "C:\LabFiles\00_preparedata.ipynb"
 
