@@ -18,10 +18,6 @@ $password = $AzurePassword # READ FROM FILE
 $Sid = $AzureSubscriptionID # READ FROM FILE
 $deployId = $DeploymentID
 
-$synapseworkspace = Get-AzResource -ResourceGroupName $rgName -ResourceType "Microsoft.Synapse/workspaces"
-$synapseworkspaceName =  $synapseworkspace| Where-Object { $_.Name -like '*' }
-$synapseworkspaceName = $synapseworkspaceName.Name
-
 $securePassword = $password | ConvertTo-SecureString -AsPlainText -Force
 $cred = new-object -typename System.Management.Automation.PSCredential -argumentlist $userName, $SecurePassword
 
@@ -29,6 +25,11 @@ Connect-AzAccount -Credential $cred | Out-Null
 
 $rgName = (Get-AzResourceGroup | Where-Object { $_.ResourceGroupName -like "many*" }).ResourceGroupName
 $rgLocation = (Get-AzResourceGroup -Name $rgName).Location
+
+
+$synapseworkspace = Get-AzResource -ResourceGroupName $rgName -ResourceType "Microsoft.Synapse/workspaces"
+$synapseworkspaceName =  $synapseworkspace| Where-Object { $_.Name -like '*' }
+$synapseworkspaceName = $synapseworkspaceName.Name
 
 $storageAccounts = Get-AzResource -ResourceGroupName $rgName -ResourceType "Microsoft.Storage/storageAccounts"
 $storageName = $storageAccounts | Where-Object { $_.Name -like 'pati*' }
