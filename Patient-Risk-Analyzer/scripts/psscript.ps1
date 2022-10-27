@@ -278,7 +278,7 @@ Start-Process C:\LabFiles\PowerShell-7.2.6-win-x64.msi -ArgumentList "/quiet"
 
 
 $machinelearningAccount = Get-AzResource -ResourceGroupName $rgName -ResourceType "Microsoft.MachineLearningServices/workspaces"
-$machinelearningName = $machinelearningAccount | Where-Object { $_.Name -like 'ml*' }
+$machinelearningName = $machinelearningAccount | Where-Object { $_.Name -like '*' }
 $machinelearningaccname = $machinelearningName.Name
 
 
