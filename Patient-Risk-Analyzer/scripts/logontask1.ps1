@@ -1,6 +1,5 @@
+
 Start-Transcript -Path C:\WindowsAzure\Logs\extensionlog.txt -Append
-
-
 
 #InstallAzmodule
 Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
@@ -8,7 +7,7 @@ Set-PSRepository -Name "PSGallery" -Installationpolicy Trusted
 Install-Module -Name Az.Synapse -Force
 Install-Module -Name Az.CosmosDB -Force
 Import-Module -Name Az.CosmosDB
-
+Import-Module Az.Synapse
 . C:\LabFiles\AzureCreds.ps1
 
 
@@ -59,12 +58,16 @@ $cosmoskey = Get-AzCosmosDBAccountKey -ResourceGroupName  $rgName -Name $account
 $cosmosDBPrimarykey = $cosmoskey["PrimaryMasterKey"]
 
 $machinelearningAccount = Get-AzResource -ResourceGroupName $rgName -ResourceType "Microsoft.MachineLearningServices/workspaces"
-$machinelearningName = $machinelearningAccount | Where-Object { $_.Name -like 'ml*' }
+$machinelearningName = $machinelearningAccount | Where-Object { $_.Name -like '*' }
 $machinelearningaccname = $machinelearningName.Name
 $mlaccountName = $machinelearningaccname
 
 $id1 = (Get-AzADServicePrincipal -DisplayName $synapseworkspaceName).id
 New-AzRoleAssignment -ObjectId $id1 -RoleDefinitionName "Contributor" -Scope "/subscriptions/$Sid/resourceGroups/$rgName/providers/Microsoft.MachineLearningServices/workspaces/$mlaccountName"
+
+$id3  = (Get-AzADServicePrincipal -DisplayName $synapseworkspaceName).id
+New-AzRoleAssignment -SignInName $id3  -RoleDefinitionName "Contributor" -Scope "/subscriptions/$Sid/resourceGroups/$rgName/providers/Microsoft.MachineLearningServices/workspaces/$mlaccountName"
+
 
 #speech service account name and key
 $speech= Get-AzResource -ResourceGroupName $rgName -ResourceType "Microsoft.CognitiveServices/accounts"
@@ -90,9 +93,11 @@ Invoke-AzSynapsePipeline -WorkspaceName $synapseworkspaceName -PipelineName "Pip
 sleep 2100
 
 ##Replace variables of 2 and 3 rd notebooks
+az logout
 az login -u "enter_user_name" -p "enter_password"
+
 az extension add --name azure-cli-ml
-az configure --defaults group="many-models"
+az configure --defaults group=$rgName
 az ml experiment list -w $mlaccountname
 $a = az ml experiment list -w $mlaccountname --query "[].name" -o tsv
 $b = az ml run list -w $mlaccountname --experiment-name $a --query "[].run_id" -o tsv
@@ -103,7 +108,7 @@ $kubaccountname = $kub| Where-Object { $_.Name -like 'k8*' }
 $kubaccountName = $kubaccountname.Name
 
 #speech service key
-$speechkey = az cognitiveservices account keys list --name $speechaccName -g "many-models"
+$speechkey = az cognitiveservices account keys list --name $speechaccName -g $rgName
 $speechprimarykey = $speechkey[1].Substring(11)
 $speechendkey = $speechprimarykey.Substring(0, $speechprimarykey.Length - 2)
 
@@ -112,10 +117,7 @@ $cosmosdb= Get-AzResource -ResourceGroupName $rgName -ResourceType "Microsoft.Do
 $cosmosdbaccountname = $cosmosdb| Where-Object { $_.Name -like 'cosmosdb*' }
 $accountName = $cosmosdbaccountname.Name
 
-#container registry details
-$containerreg= Get-AzResource -ResourceGroupName $rgName -ResourceType "Microsoft.ContainerRegistry/registries"
-$containerregname = $containerreg| Where-Object { $_.Name -like '*' }
-$contaccountName = $containerregname.Name
+
 
 #third notebook
 (Get-Content -Path "C:\LabFiles\02_deploy_AKS_diabetes_readmission_model.ipynb") | ForEach-Object {$_ -Replace "enter_data_lake_name", "$storageaccountname"} | Set-Content -Path "C:\LabFiles\02_deploy_AKS_diabetes_readmission_model.ipynb"
@@ -126,16 +128,9 @@ $contaccountName = $containerregname.Name
 (Get-Content -Path "C:\LabFiles\02_deploy_AKS_diabetes_readmission_model.ipynb") | ForEach-Object {$_ -Replace "enter_automl_id","$b"} | Set-Content -Path "C:\LabFiles\02_deploy_AKS_diabetes_readmission_model.ipynb"
 (Get-Content -Path "C:\LabFiles\02_deploy_AKS_diabetes_readmission_model.ipynb") | ForEach-Object {$_ -Replace "enter_aks_target", "$kubaccountName"} | Set-Content -Path "C:\LabFiles\02_deploy_AKS_diabetes_readmission_model.ipynb"
 
-#fourth notebook
-(Get-Content -Path "C:\LabFiles\03_load_predictions.ipynb") | ForEach-Object {$_ -Replace "data_lake_account_name = ''", "data_lake_account_name = '$storageaccountname'"} | Set-Content -Path "C:\LabFiles\03_load_predictions.ipynb"
-(Get-Content -Path "C:\LabFiles\03_load_predictions.ipynb") | ForEach-Object {$_ -Replace "enter_subscription_id", "$AzureSubscriptionID"} | Set-Content -Path "C:\LabFiles\03_load_predictions.ipynb"
-(Get-Content -Path "C:\LabFiles\03_load_predictions.ipynb") | ForEach-Object {$_ -Replace "enter_rg_name", "$rgName"} | Set-Content -Path "C:\LabFiles\03_load_predictions.ipynb"
-(Get-Content -Path "C:\LabFiles\03_load_predictions.ipynb") | ForEach-Object {$_ -Replace "enter_workspace_name", "$machinelearningaccname"} | Set-Content -Path "C:\LabFiles\03_load_predictions.ipynb"
-(Get-Content -Path "C:\LabFiles\03_load_predictions.ipynb") | ForEach-Object {$_ -Replace "enter_region", "$rgLocation"} | Set-Content -Path "C:\LabFiles\03_load_predictions.ipynb"
 
 #Upload 2 and 3 rd notebooks
 Set-AzSynapseNotebook -WorkspaceName $synapseworkspaceName -DefinitionFile "C:\LabFiles\02_deploy_AKS_diabetes_readmission_model.ipynb"
-Set-AzSynapseNotebook -WorkspaceName $synapseworkspaceName -DefinitionFile "C:\LabFiles\03_load_predictions.ipynb"
 
 #set and invoke pipeline 2 this runs 02_depoy_aks_notebook
 
@@ -143,6 +138,28 @@ Set-AzSynapsePipeline -WorkspaceName $synapseworkspaceName -Name "Pipeline 2" -D
 Invoke-AzSynapsePipeline -WorkspaceName $synapseworkspaceName -PipelineName "Pipeline 2"
 
 sleep 2400
+
+
+#container registry details
+$containerreg= Get-AzResource -ResourceGroupName $rgName -ResourceType "Microsoft.ContainerRegistry/registries"
+$containerregname = $containerreg| Where-Object { $_.Name -like '*' }
+$contaccountName = $containerregname.Name
+
+
+#fourth notebook
+(Get-Content -Path "C:\LabFiles\03_load_predictions.ipynb") | ForEach-Object {$_ -Replace "data_lake_account_name = ''", "data_lake_account_name = '$storageaccountname'"} | Set-Content -Path "C:\LabFiles\03_load_predictions.ipynb"
+(Get-Content -Path "C:\LabFiles\03_load_predictions.ipynb") | ForEach-Object {$_ -Replace "enter_subscription_id", "$AzureSubscriptionID"} | Set-Content -Path "C:\LabFiles\03_load_predictions.ipynb"
+(Get-Content -Path "C:\LabFiles\03_load_predictions.ipynb") | ForEach-Object {$_ -Replace "enter_rg_name", "$rgName"} | Set-Content -Path "C:\LabFiles\03_load_predictions.ipynb"
+(Get-Content -Path "C:\LabFiles\03_load_predictions.ipynb") | ForEach-Object {$_ -Replace "enter_workspace_name", "$machinelearningaccname"} | Set-Content -Path "C:\LabFiles\03_load_predictions.ipynb"
+(Get-Content -Path "C:\LabFiles\03_load_predictions.ipynb") | ForEach-Object {$_ -Replace "enter_region", "$rgLocation"} | Set-Content -Path "C:\LabFiles\03_load_predictions.ipynb"
+
+Set-AzSynapseNotebook -WorkspaceName $synapseworkspaceName -DefinitionFile "C:\LabFiles\03_load_predictions.ipynb"
+
+$endpoint = az ml endpoint realtime list -w $mlaccountname --query "[].scoringUri" -o tsv
+$endkey = az ml endpoint realtime get-keys -n "diabetes-readmission-service-aks" -w $mlaccountname 
+$primarykey = $endkey[1].Substring(17)
+$endkey = $primarykey.Substring(0, $primarykey.Length - 2)
+
 
 #Replace deployment script variables
 
