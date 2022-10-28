@@ -176,6 +176,15 @@ $endkey = $primarykey.Substring(0, $primarykey.Length - 2)
 (Get-Content -Path "C:\LabFiles\deployapp.ps1") | ForEach-Object {$_ -Replace  "enter_ml_bearertoken", $endkey} | Set-Content -Path "C:\LabFiles\deployapp.ps1"
 
 
+# Install VS COde extension 
+code --install-extension ms-azuretools.vscode-docker
+
+#Install WSL
+wsl --install -d Debian
+
+#Install Dcoker-Desktop
+choco install docker-for-windows -y -force
+
 
 Unregister-ScheduledTask -TaskName "Setup1" -Confirm:$false 
 Restart-Computer -Force 
