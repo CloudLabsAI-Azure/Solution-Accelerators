@@ -294,8 +294,8 @@ $WebClient.DownloadFile("https://raw.githubusercontent.com/CloudLabsAI-Azure/Sol
 $WebClient.DownloadFile("https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/Patient-Risk-Analyzer/scripts/validation.psm1","C:\LabFiles\validationscript.psm1")
 $WebClient.DownloadFile("https://raw.githubusercontent.com/CloudLabsAI-Azure/Solution-Accelerators/main/Patient-Risk-Analyzer/scripts/docker.ps1","C:\LabFiles\docker.ps1")
 
-(Get-Content -Path "C:\LabFiles\logontask.ps1") | ForEach-Object {$_ -Replace 'enter_user_name', $userName} | Set-Content -Path "C:\LabFiles\logontask.ps1"
-(Get-Content -Path "C:\LabFiles\logontask.ps1") | ForEach-Object {$_ -Replace 'enter_password', $password} | Set-Content -Path "C:\LabFiles\logontask.ps1"
+(Get-Content -Path "C:\LabFiles\logontask.ps1") | ForEach-Object {$_ -Replace 'enter_user_name1', $userName} | Set-Content -Path "C:\LabFiles\logontask.ps1"
+(Get-Content -Path "C:\LabFiles\logontask.ps1") | ForEach-Object {$_ -Replace 'enter_password1', $password} | Set-Content -Path "C:\LabFiles\logontask.ps1"
 
 #Download lab files
 $WebClient = New-Object System.Net.WebClient
