@@ -1,7 +1,7 @@
 Start-Service *docker*
 
 #execute deployment script
-cd C:\LabFiles
+cd C:\LabFiles\solutionaccelarator
 
 .\deployapp.ps1
 
