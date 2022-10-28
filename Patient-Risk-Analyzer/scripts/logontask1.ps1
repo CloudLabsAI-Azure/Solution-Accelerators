@@ -65,7 +65,7 @@ $mlaccountName = $machinelearningaccname
 $id1 = (Get-AzADServicePrincipal -DisplayName $synapseworkspaceName).id
 New-AzRoleAssignment -ObjectId $id1 -RoleDefinitionName "Contributor" -Scope "/subscriptions/$Sid/resourceGroups/$rgName/providers/Microsoft.MachineLearningServices/workspaces/$mlaccountName"
 
-$id3  = (Get-AzADServicePrincipal -DisplayName $synapseworkspaceName).id
+#$id3  = (Get-AzADServicePrincipal -DisplayName $synapseworkspaceName).id
 New-AzRoleAssignment -SignInName $id3  -RoleDefinitionName "Contributor" -Scope "/subscriptions/$Sid/resourceGroups/$rgName/providers/Microsoft.MachineLearningServices/workspaces/$mlaccountName"
 
 
@@ -104,7 +104,7 @@ $b = az ml run list -w $mlaccountname --experiment-name $a --query "[].run_id" -
 
 #kubernetes details
 $kub= Get-AzResource -ResourceGroupName $rgName -ResourceType "Microsoft.ContainerService/managedClusters"
-$kubaccountname = $kub| Where-Object { $_.Name -like 'k8*' }
+$kubaccountname = $kub| Where-Object { $_.Name -like '*' }
 $kubaccountName = $kubaccountname.Name
 
 #speech service key
