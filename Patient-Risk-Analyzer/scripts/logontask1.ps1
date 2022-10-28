@@ -94,7 +94,7 @@ sleep 2100
 
 ##Replace variables of 2 and 3 rd notebooks
 az logout
-az login -u "enter_user_name" -p "enter_password"
+az login -u "enter_user_name1" -p "enter_password1"
 
 az extension add --name azure-cli-ml
 az configure --defaults group=$rgName
